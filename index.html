@@ -5,80 +5,100 @@
 <title>OCORRÊNCIA DE PONTO</title>
 
 <style>
-body {
+body{
     font-family: Arial, sans-serif;
-    margin: 20px;
+    background:#f4f6f9;
+    margin:0;
+    padding:30px;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
+.container{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
-.logo {
-    text-align: center;
-    margin-bottom: 10px;
+.logo{
+    text-align:center;
+    margin-bottom:10px;
 }
 
-.logo img {
-    max-width: 200px;
+.logo img{
+    max-width:200px;
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
+h2{
+    text-align:center;
+    margin-bottom:20px;
 }
 
-.section-title {
-    font-weight: bold;
-    margin-top: 20px;
-    text-decoration: underline;
+.section{
+    margin-top:15px;
 }
 
-input, textarea {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid black;
-    margin-bottom: 10px;
+.section-title{
+    font-weight:bold;
+    margin-bottom:8px;
 }
 
-textarea {
-    border: 1px solid black;
-    resize: none;
+label{
+    display:block;
+    margin-top:8px;
 }
 
-.checkbox-group label {
-    display: block;
-    margin-bottom: 5px;
+input, textarea{
+    width:100%;
+    border:none;
+    border-bottom:1px solid black;
+    padding:4px;
+    margin-top:3px;
 }
 
-.button {
-    margin-top: 20px;
-    padding: 10px;
-    background: #003e7e;
-    color: white;
-    border: none;
-    width: 100%;
-    cursor: pointer;
+textarea{
+    border:1px solid black;
+    resize:none;
 }
 
-@media print {
+.checkbox-line{
+    margin-top:5px;
+}
 
-    body {
-        margin: 10mm;
+.button{
+    margin-top:20px;
+    background:#003e7e;
+    color:white;
+    padding:10px;
+    border:none;
+    width:100%;
+    cursor:pointer;
+}
+
+@media print{
+
+    body{
+        background:white;
+        padding:0;
     }
 
-    .button {
-        display: none;
+    .container{
+        box-shadow:none;
+        padding:0;
     }
 
-    input, textarea {
-        border: none;
-        border-bottom: 1px solid black;
+    .button{
+        display:none;
     }
 
-    textarea {
-        border: 1px solid black;
+    input, textarea{
+        border:none;
+        border-bottom:1px solid black;
+    }
+
+    textarea{
+        border:1px solid black;
     }
 
 }
@@ -95,16 +115,22 @@ textarea {
 
 <h2>OCORRÊNCIA DE PONTO</h2>
 
-<div class="section-title">DADOS DO EMPREGADOR</div>
+<div class="section">
+<div class="section-title">Dados do Empregador</div>
 
-<p><strong>Razão Social:</strong> Gds Logística Ltda</p>
-<p><strong>CNPJ:</strong> 16.637.947/0002-29</p>
-<p><strong>Endereço:</strong> Rua Teodoro de Beaurepaire, 34 – Vila Dom Pedro I – São Paulo/SP</p>
+<p><strong>Razão Social:</strong> Gds Logística Ltda
+&nbsp;&nbsp;&nbsp;&nbsp;
+<strong>CNPJ:</strong> 16.637.947/0002-29</p>
+
+<p><strong>Endereço:</strong> Rua Teodoro de Beaurepaire, 34 - Vila Dom Pedro I - São Paulo/SP</p>
+
 <p><strong>CEP:</strong> 04279-030</p>
+</div>
 
 <hr>
 
-<div class="section-title">DADOS DO TRABALHADOR</div>
+<div class="section">
+<div class="section-title">Dados do Trabalhador</div>
 
 <label>Nome do Colaborador:</label>
 <input type="text">
@@ -117,10 +143,12 @@ textarea {
 
 <label>Data da Ocorrência:</label>
 <input type="date">
+</div>
 
+<div class="section">
 <div class="section-title">Qual registro não foi marcado</div>
 
-<div class="checkbox-group">
+<div class="checkbox-line">
 <label><input type="checkbox"> Entrada</label>
 <label><input type="checkbox"> Saída Intervalo</label>
 <label><input type="checkbox"> Retorno Intervalo</label>
@@ -130,14 +158,14 @@ textarea {
 <label>Horário devido da marcação:</label>
 <input type="time">
 
-<label>Justificativa:</label>
-<textarea rows="4"></textarea>
+<label>Justifique o motivo da não marcação do ponto:</label>
+<textarea rows="3"></textarea>
+</div>
 
 <br><br>
 
 <p>Assinatura do colaborador: ___________________________________________</p>
-<p>Assinatura Líder: _________________________________________________</p>
-<p>Assinatura RH: _________________________________________________</p>
+<p>Assinatura Líder: _________________________________________________ assinatura RH: _____________________________</p>
 
 <button class="button" onclick="window.print()">Imprimir Documento</button>
 
