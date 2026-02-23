@@ -5,7 +5,6 @@
 <title>OCORRÊNCIA DE PONTO</title>
 
 <style>
-
 body{
     font-family: Arial, sans-serif;
     background:#f4f6f9;
@@ -17,29 +16,34 @@ body{
     max-width:800px;
     margin:auto;
     background:white;
-    padding:25px;
+    padding:20px;
     border-radius:6px;
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
+.ocorrencia{
+    border:1px solid #ccc;
+    padding:15px;
+    margin-top:20px;
+}
+
 .logo{
     text-align:center;
-    margin-bottom:10px;
 }
 
 .logo img{
-    max-width:150px;
+    max-width:140px;
 }
 
-h2{
+h3{
     text-align:center;
-    font-size:18px;
+    margin:5px 0 15px 0;
 }
 
 .section-title{
     font-weight:bold;
-    margin-top:15px;
     text-decoration:underline;
+    margin-top:10px;
 }
 
 label{
@@ -68,6 +72,10 @@ textarea{
     margin-top:5px;
 }
 
+.horarios{
+    margin-top:10px;
+}
+
 .button{
     margin-top:20px;
     background:#003e7e;
@@ -78,16 +86,7 @@ textarea{
     cursor:pointer;
 }
 
-.ocorrencia-bloco{
-    border:1px solid #ccc;
-    padding:15px;
-    margin-top:15px;
-}
-
-/* IMPRESSÃO */
-
-@media print {
-
+@media print{
     @page{
         size:A4 portrait;
         margin:15mm;
@@ -98,7 +97,7 @@ textarea{
         padding:0;
     }
 
-    .button, .controle{
+    .button{
         display:none;
     }
 
@@ -108,27 +107,43 @@ textarea{
         padding:0;
     }
 
-    .ocorrencia-bloco{
+    .ocorrencia{
         border:1px solid black;
         padding:10mm;
         page-break-inside:avoid;
     }
-
 }
-
 </style>
 
 <script>
 
+function atualizarHorarios(id){
+
+    let checkboxes = document.querySelectorAll("#"+id+" input[type=checkbox]:checked");
+    let area = document.querySelector("#"+id+" .horarios");
+
+    area.innerHTML = "";
+
+    checkboxes.forEach((cb, index) => {
+
+        let label = document.createElement("label");
+        label.innerText = "Horário referente a " + cb.parentElement.innerText.trim() + ":";
+
+        let input = document.createElement("input");
+        input.type = "time";
+
+        area.appendChild(label);
+        area.appendChild(input);
+
+    });
+
+}
+
 function alterarQuantidade(){
     let qtd = document.getElementById("quantidade").value;
-    let bloco2 = document.getElementById("bloco2");
+    let bloco2 = document.getElementById("oc2");
 
-    if(qtd == "2"){
-        bloco2.style.display = "block";
-    } else {
-        bloco2.style.display = "none";
-    }
+    bloco2.style.display = (qtd == "2") ? "block" : "none";
 }
 
 </script>
@@ -139,11 +154,22 @@ function alterarQuantidade(){
 
 <div class="container">
 
+<div>
+<label>Quantidade de ocorrências:</label>
+<select id="quantidade" onchange="alterarQuantidade()">
+<option value="1">1 Ocorrência</option>
+<option value="2">2 Ocorrências</option>
+</select>
+</div>
+
+<!-- OCORRÊNCIA 1 -->
+<div class="ocorrencia" id="oc1">
+
 <div class="logo">
 <img src="logo-azulcargo.png">
 </div>
 
-<h2>OCORRÊNCIA DE PONTO</h2>
+<h3>OCORRÊNCIA DE PONTO</h3>
 
 <div class="section-title">Dados do Trabalhador</div>
 
@@ -153,39 +179,19 @@ function alterarQuantidade(){
 <label>Cargo:</label>
 <input type="text">
 
-<label>CPF (opcional):</label>
-<input type="text">
-
-<hr>
-
-<div class="controle">
-<label>Quantidade de justificativas:</label>
-<select id="quantidade" onchange="alterarQuantidade()">
-<option value="1">1 Ocorrência</option>
-<option value="2">2 Ocorrências</option>
-</select>
-</div>
-
-<!-- BLOCO 1 -->
-
-<div class="ocorrencia-bloco">
-
-<div class="section-title">Ocorrência 1</div>
-
 <label>Data da Ocorrência:</label>
 <input type="date">
-
-<label>Horário devido da marcação:</label>
-<input type="time">
 
 <div class="section-title">Registro não marcado</div>
 
 <div class="checkbox-group">
-<label><input type="checkbox"> Entrada</label>
-<label><input type="checkbox"> Saída Intervalo</label>
-<label><input type="checkbox"> Retorno Intervalo</label>
-<label><input type="checkbox"> Saída</label>
+<label><input type="checkbox" onchange="atualizarHorarios('oc1')"> Entrada</label>
+<label><input type="checkbox" onchange="atualizarHorarios('oc1')"> Saída Intervalo</label>
+<label><input type="checkbox" onchange="atualizarHorarios('oc1')"> Retorno Intervalo</label>
+<label><input type="checkbox" onchange="atualizarHorarios('oc1')"> Saída</label>
 </div>
+
+<div class="horarios"></div>
 
 <div class="section-title">Justificativa</div>
 
@@ -199,49 +205,64 @@ function alterarQuantidade(){
 </select>
 
 <textarea rows="2" placeholder="Se Outros, especificar"></textarea>
-
-</div>
-
-<!-- BLOCO 2 -->
-
-<div class="ocorrencia-bloco" id="bloco2" style="display:none;">
-
-<div class="section-title">Ocorrência 2</div>
-
-<label>Data da Ocorrência:</label>
-<input type="date">
-
-<label>Horário devido da marcação:</label>
-<input type="time">
-
-<div class="section-title">Registro não marcado</div>
-
-<div class="checkbox-group">
-<label><input type="checkbox"> Entrada</label>
-<label><input type="checkbox"> Saída Intervalo</label>
-<label><input type="checkbox"> Retorno Intervalo</label>
-<label><input type="checkbox"> Saída</label>
-</div>
-
-<div class="section-title">Justificativa</div>
-
-<select>
-<option>Esqueceu</option>
-<option>Não reconheceu o momento do registro</option>
-<option>Sem energia</option>
-<option>Problema com ponto</option>
-<option>Não lembra</option>
-<option>Outros</option>
-</select>
-
-<textarea rows="2" placeholder="Se Outros, especificar"></textarea>
-
-</div>
 
 <br>
 
 <p>Assinatura do colaborador: ___________________________________________</p>
 <p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
+
+</div>
+
+<!-- OCORRÊNCIA 2 -->
+<div class="ocorrencia" id="oc2" style="display:none;">
+
+<div class="logo">
+<img src="logo-azulcargo.png">
+</div>
+
+<h3>OCORRÊNCIA DE PONTO</h3>
+
+<div class="section-title">Dados do Trabalhador</div>
+
+<label>Nome:</label>
+<input type="text">
+
+<label>Cargo:</label>
+<input type="text">
+
+<label>Data da Ocorrência:</label>
+<input type="date">
+
+<div class="section-title">Registro não marcado</div>
+
+<div class="checkbox-group">
+<label><input type="checkbox" onchange="atualizarHorarios('oc2')"> Entrada</label>
+<label><input type="checkbox" onchange="atualizarHorarios('oc2')"> Saída Intervalo</label>
+<label><input type="checkbox" onchange="atualizarHorarios('oc2')"> Retorno Intervalo</label>
+<label><input type="checkbox" onchange="atualizarHorarios('oc2')"> Saída</label>
+</div>
+
+<div class="horarios"></div>
+
+<div class="section-title">Justificativa</div>
+
+<select>
+<option>Esqueceu</option>
+<option>Não reconheceu o momento do registro</option>
+<option>Sem energia</option>
+<option>Problema com ponto</option>
+<option>Não lembra</option>
+<option>Outros</option>
+</select>
+
+<textarea rows="2" placeholder="Se Outros, especificar"></textarea>
+
+<br>
+
+<p>Assinatura do colaborador: ___________________________________________</p>
+<p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
+
+</div>
 
 <button class="button" onclick="window.print()">Imprimir Documento</button>
 
