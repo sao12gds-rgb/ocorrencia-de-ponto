@@ -14,7 +14,7 @@ body{
 }
 
 .container{
-    max-width:750px;
+    max-width:800px;
     margin:auto;
     background:white;
     padding:25px;
@@ -28,20 +28,18 @@ body{
 }
 
 .logo img{
-    max-width:160px;
+    max-width:150px;
 }
 
 h2{
     text-align:center;
     font-size:18px;
-    margin-bottom:15px;
 }
 
 .section-title{
     font-weight:bold;
     margin-top:12px;
     text-decoration:underline;
-    font-size:14px;
 }
 
 label{
@@ -64,11 +62,16 @@ textarea{
 }
 
 .checkbox-group{
-    margin-top:5px;
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:6px 30px;
-    font-size:14px;
+    margin-top:5px;
+}
+
+.occurrence{
+    border:1px solid #ccc;
+    padding:15px;
+    margin-top:20px;
 }
 
 .button{
@@ -81,7 +84,7 @@ textarea{
     cursor:pointer;
 }
 
-/* -------- IMPRESSÃO AJUSTADA -------- */
+/* -------- IMPRESSÃO -------- */
 
 @media print {
 
@@ -95,24 +98,48 @@ textarea{
         padding:0;
     }
 
-    .button {
+    .button, .control-area {
         display:none;
     }
 
-    .container {
-        width:100%;
-        height:auto;
+    .container{
         box-shadow:none;
+        border:none;
+        padding:0;
+    }
+
+    .occurrence{
         border:1px solid black;
-        padding:15mm;
-        margin:0 auto;
-        page-break-after:avoid;
+        padding:10mm;
         page-break-inside:avoid;
+    }
+
+    .two .occurrence{
+        height:48%;
     }
 
 }
 
 </style>
+
+<script>
+
+function updateQuantity(){
+    let qty = document.getElementById("quantidade").value;
+    let occ2 = document.getElementById("occ2");
+    let container = document.getElementById("printArea");
+
+    if(qty == "2"){
+        occ2.style.display = "block";
+        container.classList.add("two");
+    } else {
+        occ2.style.display = "none";
+        container.classList.remove("two");
+    }
+}
+
+</script>
+
 </head>
 
 <body>
@@ -125,39 +152,31 @@ textarea{
 
 <h2>OCORRÊNCIA DE PONTO</h2>
 
-<div class="section-title">Dados do Empregador</div>
+<div class="control-area">
+<label>Quantidade de ocorrências na folha:</label>
+<select id="quantidade" onchange="updateQuantity()">
+<option value="1">1 ocorrência</option>
+<option value="2">2 ocorrências</option>
+</select>
+</div>
 
-<p>
-<strong>Razão Social:</strong> Gds Logística Ltda
-&nbsp;&nbsp;&nbsp;&nbsp;
-<strong>CNPJ:</strong> 16.637.947/0002-29
-</p>
+<div id="printArea">
 
-<p>
-<strong>Endereço:</strong> Rua Teodoro de Beaurepaire, 34 - Vila Dom Pedro I - São Paulo/SP
-</p>
-
-<p>
-<strong>CEP:</strong> 04279-030
-</p>
-
-<hr>
+<!-- OCORRÊNCIA 1 -->
+<div class="occurrence">
 
 <div class="section-title">Dados do Trabalhador</div>
 
-<label>Nome do Colaborador:</label>
+<label>Nome:</label>
 <input type="text">
 
 <label>Cargo:</label>
 <input type="text">
 
-<label>CPF (opcional):</label>
-<input type="text">
-
 <label>Data da Ocorrência:</label>
 <input type="date">
 
-<div class="section-title">Qual registro não foi marcado</div>
+<div class="section-title">Registro não marcado</div>
 
 <div class="checkbox-group">
 <label><input type="checkbox"> Entrada</label>
@@ -166,13 +185,9 @@ textarea{
 <label><input type="checkbox"> Saída</label>
 </div>
 
-<label>Horário devido da marcação:</label>
-<input type="time">
-
 <div class="section-title">Justificativa</div>
 
 <select>
-<option value="">Selecione...</option>
 <option>Esqueceu</option>
 <option>Não reconheceu o momento do registro</option>
 <option>Sem energia</option>
@@ -181,13 +196,53 @@ textarea{
 <option>Outros</option>
 </select>
 
-<label>Se selecionado "Outros", especifique:</label>
-<textarea rows="2"></textarea>
+<textarea rows="2" placeholder="Se Outros, especificar"></textarea>
 
-<br><br>
+<p>Assinatura: ___________________________________________</p>
 
-<p>Assinatura do colaborador: ___________________________________________</p>
-<p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
+</div>
+
+<!-- OCORRÊNCIA 2 -->
+<div class="occurrence" id="occ2" style="display:none;">
+
+<div class="section-title">Dados do Trabalhador</div>
+
+<label>Nome:</label>
+<input type="text">
+
+<label>Cargo:</label>
+<input type="text">
+
+<label>Data da Ocorrência:</label>
+<input type="date">
+
+<div class="section-title">Registro não marcado</div>
+
+<div class="checkbox-group">
+<label><input type="checkbox"> Entrada</label>
+<label><input type="checkbox"> Saída Intervalo</label>
+<label><input type="checkbox"> Retorno Intervalo</label>
+<label><input type="checkbox"> Saída</label>
+</div>
+
+<div class="section-title">Justificativa</div>
+
+<select>
+<option>Esqueceu</option>
+<option>Não reconheceu o momento do registro</option>
+<option>Sem energia</option>
+<option>Problema com ponto</option>
+<option>Não lembra</option>
+<option>Outros</option>
+</select>
+
+<textarea rows="2" placeholder="Se Outros, especificar"></textarea>
+
+<p>Assinatura: ___________________________________________</p>
+
+</div>
+
+</div>
 
 <button class="button" onclick="window.print()">Imprimir Documento</button>
 
