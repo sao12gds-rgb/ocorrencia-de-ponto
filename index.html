@@ -14,32 +14,32 @@ body{
 }
 
 .container{
-    max-width:700px;
+    max-width:750px;
     margin:auto;
     background:white;
-    padding:20px;
+    padding:25px;
     border-radius:6px;
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
 .logo{
     text-align:center;
-    margin-bottom:5px;
+    margin-bottom:10px;
 }
 
 .logo img{
-    max-width:150px;
+    max-width:160px;
 }
 
 h2{
     text-align:center;
-    font-size:17px;
+    font-size:18px;
     margin-bottom:15px;
 }
 
 .section-title{
     font-weight:bold;
-    margin-top:10px;
+    margin-top:12px;
     text-decoration:underline;
     font-size:14px;
 }
@@ -47,15 +47,15 @@ h2{
 label{
     display:block;
     margin-top:6px;
-    font-size:13px;
+    font-size:14px;
 }
 
 input, select, textarea{
     width:100%;
     border:none;
     border-bottom:1px solid black;
-    font-size:13px;
-    padding:3px;
+    padding:4px;
+    font-size:14px;
 }
 
 textarea{
@@ -67,46 +67,47 @@ textarea{
     margin-top:5px;
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:4px 20px;
-    font-size:13px;
+    gap:6px 30px;
+    font-size:14px;
 }
 
 .button{
-    margin-top:15px;
+    margin-top:20px;
     background:#003e7e;
     color:white;
-    padding:8px;
+    padding:10px;
     border:none;
     width:100%;
     cursor:pointer;
 }
 
-/* -------- IMPRESSÃO MEIA FOLHA -------- */
+/* -------- IMPRESSÃO AJUSTADA -------- */
 
 @media print {
 
-    @page{
-        size:A4 portrait;
-        margin:0;
+    @page {
+        size: A4 portrait;
+        margin: 15mm;
     }
 
-    body{
+    body {
         background:white;
         padding:0;
     }
 
-    .button{
+    .button {
         display:none;
     }
 
-    .container{
-        width:148mm;
-        height:210mm;
+    .container {
+        width:100%;
+        height:auto;
         box-shadow:none;
         border:1px solid black;
-        padding:12mm;
+        padding:15mm;
         margin:0 auto;
-        page-break-after:always;
+        page-break-after:avoid;
+        page-break-inside:avoid;
     }
 
 }
@@ -126,17 +127,17 @@ textarea{
 
 <div class="section-title">Dados do Empregador</div>
 
-<p style="font-size:13px;">
+<p>
 <strong>Razão Social:</strong> Gds Logística Ltda
 &nbsp;&nbsp;&nbsp;&nbsp;
 <strong>CNPJ:</strong> 16.637.947/0002-29
 </p>
 
-<p style="font-size:13px;">
+<p>
 <strong>Endereço:</strong> Rua Teodoro de Beaurepaire, 34 - Vila Dom Pedro I - São Paulo/SP
 </p>
 
-<p style="font-size:13px;">
+<p>
 <strong>CEP:</strong> 04279-030
 </p>
 
@@ -183,10 +184,10 @@ textarea{
 <label>Se selecionado "Outros", especifique:</label>
 <textarea rows="2"></textarea>
 
-<br>
+<br><br>
 
-<p style="font-size:13px;">Assinatura do colaborador: ___________________________________________</p>
-<p style="font-size:13px;">Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
+<p>Assinatura do colaborador: ___________________________________________</p>
+<p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
 
 <button class="button" onclick="window.print()">Imprimir Documento</button>
 
