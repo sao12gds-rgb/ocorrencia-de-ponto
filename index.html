@@ -6,81 +6,136 @@
 <style>
 body {
     font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: auto;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.logo img {
+    max-width: 220px;
 }
 h2 {
     text-align: center;
+    color: #003e7e;
+    margin-bottom: 30px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+label {
+    font-weight: bold;
 }
 input, textarea {
     width: 100%;
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid black;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 textarea {
-    border: 1px solid black;
+    resize: none;
 }
-button {
-    padding: 10px;
+.checkbox-group {
+    margin-top: 10px;
+}
+.button {
+    margin-top: 25px;
+    background-color: #003e7e;
+    color: white;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    border-radius: 6px;
+    font-size: 16px;
     cursor: pointer;
 }
+.button:hover {
+    background-color: #002a55;
+}
 @media print {
-    button {
+    .button {
         display: none;
+    }
+    body {
+        background: white;
+    }
+    .container {
+        box-shadow: none;
+        margin: 0;
     }
 }
 </style>
 </head>
 <body>
 
+<div class="container">
+
+<div class="logo">
+    <img src="logo-azulcargo.png">
+</div>
+
 <h2>OCORRÊNCIA DE PONTO</h2>
 
-<h4>DADOS DO EMPREGADOR</h4>
-<p><strong>Razão Social:</strong> Gds Logística Ltda</p>
-<p><strong>CNPJ:</strong> 16.637.947/0002-29</p>
-<p><strong>Endereço:</strong> Rua Teodoro de Beaurepaire, 34 – Vila Dom Pedro I – São Paulo/SP</p>
-<p><strong>CEP:</strong> 04279-030</p>
-
-<hr>
-
-<h4>DADOS DO TRABALHADOR</h4>
-
-<label>Nome do Colaborador:</label>
+<div class="form-group">
+<label>Nome do Colaborador</label>
 <input type="text">
+</div>
 
-<label>Cargo:</label>
+<div class="form-group">
+<label>Cargo</label>
 <input type="text">
+</div>
 
-<label>CPF (opcional):</label>
+<div class="form-group">
+<label>CPF (opcional)</label>
 <input type="text">
+</div>
 
-<label>Data da Ocorrência:</label>
+<div class="form-group">
+<label>Data da Ocorrência</label>
 <input type="date">
+</div>
 
 <hr>
 
-<h4>Registro não marcado</h4>
+<label>Registro não marcado</label>
+<div class="checkbox-group">
 <input type="checkbox"> Entrada<br>
 <input type="checkbox"> Saída Intervalo<br>
 <input type="checkbox"> Retorno Intervalo<br>
-<input type="checkbox"> Saída<br><br>
+<input type="checkbox"> Saída
+</div>
 
-<label>Horário devido da marcação:</label>
+<div class="form-group">
+<label>Horário devido da marcação</label>
 <input type="time">
+</div>
 
-<hr>
-
-<label>Justificativa:</label>
+<div class="form-group">
+<label>Justificativa</label>
 <textarea rows="4"></textarea>
+</div>
 
 <br><br>
+
 <p>Assinatura do Colaborador: ___________________________________________</p>
 <p>Assinatura do Líder: _________________________________________________</p>
 <p>Assinatura RH: ______________________________________________________</p>
 
-<br>
-<button onclick="window.print()">Imprimir</button>
+<button class="button" onclick="window.print()">Imprimir Documento</button>
+
+</div>
 
 </body>
 </html>
