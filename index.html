@@ -5,56 +5,56 @@
 <title>OCORRÊNCIA DE PONTO</title>
 
 <style>
+
 body{
     font-family: Arial, sans-serif;
     background:#f4f6f9;
     margin:0;
-    padding:30px;
+    padding:20px;
 }
 
 .container{
-    max-width:800px;
+    max-width:700px;
     margin:auto;
     background:white;
-    padding:30px;
-    border-radius:8px;
+    padding:20px;
+    border-radius:6px;
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
 .logo{
     text-align:center;
-    margin-bottom:10px;
+    margin-bottom:5px;
 }
 
 .logo img{
-    max-width:200px;
+    max-width:160px;
 }
 
 h2{
     text-align:center;
-    margin-bottom:20px;
-}
-
-.section{
-    margin-top:15px;
+    font-size:18px;
+    margin-bottom:15px;
 }
 
 .section-title{
     font-weight:bold;
-    margin-bottom:8px;
+    margin-top:10px;
+    text-decoration:underline;
 }
 
 label{
     display:block;
-    margin-top:8px;
+    margin-top:6px;
+    font-size:13px;
 }
 
 input, textarea{
     width:100%;
     border:none;
     border-bottom:1px solid black;
-    padding:4px;
-    margin-top:3px;
+    font-size:13px;
+    padding:3px;
 }
 
 textarea{
@@ -62,29 +62,33 @@ textarea{
     resize:none;
 }
 
-.checkbox-line{
+.checkbox-group{
     margin-top:5px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4px 20px;
+    font-size:13px;
 }
 
 .button{
-    margin-top:20px;
+    margin-top:15px;
     background:#003e7e;
     color:white;
-    padding:10px;
+    padding:8px;
     border:none;
     width:100%;
     cursor:pointer;
 }
 
-@media print{
+@media print {
+
+    @page{
+        size:A4 portrait;
+        margin:0;
+    }
 
     body{
         background:white;
-        padding:0;
-    }
-
-    .container{
-        box-shadow:none;
         padding:0;
     }
 
@@ -92,16 +96,18 @@ textarea{
         display:none;
     }
 
-    input, textarea{
-        border:none;
-        border-bottom:1px solid black;
-    }
-
-    textarea{
+    .container{
+        width:148mm;
+        height:210mm;
+        box-shadow:none;
         border:1px solid black;
+        padding:12mm;
+        margin:0 auto;
+        page-break-after:always;
     }
 
 }
+
 </style>
 </head>
 
@@ -115,21 +121,24 @@ textarea{
 
 <h2>OCORRÊNCIA DE PONTO</h2>
 
-<div class="section">
 <div class="section-title">Dados do Empregador</div>
 
-<p><strong>Razão Social:</strong> Gds Logística Ltda
+<p style="font-size:13px;">
+<strong>Razão Social:</strong> Gds Logística Ltda
 &nbsp;&nbsp;&nbsp;&nbsp;
-<strong>CNPJ:</strong> 16.637.947/0002-29</p>
+<strong>CNPJ:</strong> 16.637.947/0002-29
+</p>
 
-<p><strong>Endereço:</strong> Rua Teodoro de Beaurepaire, 34 - Vila Dom Pedro I - São Paulo/SP</p>
+<p style="font-size:13px;">
+<strong>Endereço:</strong> Rua Teodoro de Beaurepaire, 34 - Vila Dom Pedro I - São Paulo/SP
+</p>
 
-<p><strong>CEP:</strong> 04279-030</p>
-</div>
+<p style="font-size:13px;">
+<strong>CEP:</strong> 04279-030
+</p>
 
 <hr>
 
-<div class="section">
 <div class="section-title">Dados do Trabalhador</div>
 
 <label>Nome do Colaborador:</label>
@@ -143,12 +152,10 @@ textarea{
 
 <label>Data da Ocorrência:</label>
 <input type="date">
-</div>
 
-<div class="section">
 <div class="section-title">Qual registro não foi marcado</div>
 
-<div class="checkbox-line">
+<div class="checkbox-group">
 <label><input type="checkbox"> Entrada</label>
 <label><input type="checkbox"> Saída Intervalo</label>
 <label><input type="checkbox"> Retorno Intervalo</label>
@@ -160,12 +167,11 @@ textarea{
 
 <label>Justifique o motivo da não marcação do ponto:</label>
 <textarea rows="3"></textarea>
-</div>
 
-<br><br>
+<br>
 
-<p>Assinatura do colaborador: ___________________________________________</p>
-<p>Assinatura Líder: _________________________________________________ assinatura RH: _____________________________</p>
+<p style="font-size:13px;">Assinatura do colaborador: ___________________________________________</p>
+<p style="font-size:13px;">Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
 
 <button class="button" onclick="window.print()">Imprimir Documento</button>
 
