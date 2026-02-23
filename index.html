@@ -38,7 +38,7 @@ h2{
 
 .section-title{
     font-weight:bold;
-    margin-top:12px;
+    margin-top:15px;
     text-decoration:underline;
 }
 
@@ -68,12 +68,6 @@ textarea{
     margin-top:5px;
 }
 
-.occurrence{
-    border:1px solid #ccc;
-    padding:15px;
-    margin-top:20px;
-}
-
 .button{
     margin-top:20px;
     background:#003e7e;
@@ -84,21 +78,27 @@ textarea{
     cursor:pointer;
 }
 
-/* -------- IMPRESSÃO -------- */
+.ocorrencia-bloco{
+    border:1px solid #ccc;
+    padding:15px;
+    margin-top:15px;
+}
+
+/* IMPRESSÃO */
 
 @media print {
 
-    @page {
-        size: A4 portrait;
-        margin: 15mm;
+    @page{
+        size:A4 portrait;
+        margin:15mm;
     }
 
-    body {
+    body{
         background:white;
         padding:0;
     }
 
-    .button, .control-area {
+    .button, .controle{
         display:none;
     }
 
@@ -108,14 +108,10 @@ textarea{
         padding:0;
     }
 
-    .occurrence{
+    .ocorrencia-bloco{
         border:1px solid black;
         padding:10mm;
         page-break-inside:avoid;
-    }
-
-    .two .occurrence{
-        height:48%;
     }
 
 }
@@ -124,17 +120,14 @@ textarea{
 
 <script>
 
-function updateQuantity(){
-    let qty = document.getElementById("quantidade").value;
-    let occ2 = document.getElementById("occ2");
-    let container = document.getElementById("printArea");
+function alterarQuantidade(){
+    let qtd = document.getElementById("quantidade").value;
+    let bloco2 = document.getElementById("bloco2");
 
-    if(qty == "2"){
-        occ2.style.display = "block";
-        container.classList.add("two");
+    if(qtd == "2"){
+        bloco2.style.display = "block";
     } else {
-        occ2.style.display = "none";
-        container.classList.remove("two");
+        bloco2.style.display = "none";
     }
 }
 
@@ -147,24 +140,11 @@ function updateQuantity(){
 <div class="container">
 
 <div class="logo">
-    <img src="logo-azulcargo.png">
+<img src="logo-azulcargo.png">
 </div>
 
 <h2>OCORRÊNCIA DE PONTO</h2>
 
-<div class="control-area">
-<label>Quantidade de ocorrências na folha:</label>
-<select id="quantidade" onchange="updateQuantity()">
-<option value="1">1 ocorrência</option>
-<option value="2">2 ocorrências</option>
-</select>
-</div>
-
-<div id="printArea">
-
-<!-- OCORRÊNCIA 1 -->
-<div class="occurrence">
-
 <div class="section-title">Dados do Trabalhador</div>
 
 <label>Nome:</label>
@@ -173,8 +153,30 @@ function updateQuantity(){
 <label>Cargo:</label>
 <input type="text">
 
+<label>CPF (opcional):</label>
+<input type="text">
+
+<hr>
+
+<div class="controle">
+<label>Quantidade de justificativas:</label>
+<select id="quantidade" onchange="alterarQuantidade()">
+<option value="1">1 Ocorrência</option>
+<option value="2">2 Ocorrências</option>
+</select>
+</div>
+
+<!-- BLOCO 1 -->
+
+<div class="ocorrencia-bloco">
+
+<div class="section-title">Ocorrência 1</div>
+
 <label>Data da Ocorrência:</label>
 <input type="date">
+
+<label>Horário devido da marcação:</label>
+<input type="time">
 
 <div class="section-title">Registro não marcado</div>
 
@@ -198,23 +200,19 @@ function updateQuantity(){
 
 <textarea rows="2" placeholder="Se Outros, especificar"></textarea>
 
-<p>Assinatura: ___________________________________________</p>
-
 </div>
 
-<!-- OCORRÊNCIA 2 -->
-<div class="occurrence" id="occ2" style="display:none;">
+<!-- BLOCO 2 -->
 
-<div class="section-title">Dados do Trabalhador</div>
+<div class="ocorrencia-bloco" id="bloco2" style="display:none;">
 
-<label>Nome:</label>
-<input type="text">
-
-<label>Cargo:</label>
-<input type="text">
+<div class="section-title">Ocorrência 2</div>
 
 <label>Data da Ocorrência:</label>
 <input type="date">
+
+<label>Horário devido da marcação:</label>
+<input type="time">
 
 <div class="section-title">Registro não marcado</div>
 
@@ -238,11 +236,12 @@ function updateQuantity(){
 
 <textarea rows="2" placeholder="Se Outros, especificar"></textarea>
 
-<p>Assinatura: ___________________________________________</p>
-
 </div>
 
-</div>
+<br>
+
+<p>Assinatura do colaborador: ___________________________________________</p>
+<p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
 
 <button class="button" onclick="window.print()">Imprimir Documento</button>
 
