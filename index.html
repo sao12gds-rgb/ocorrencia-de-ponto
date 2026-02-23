@@ -3,91 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <title>OCORRÊNCIA DE PONTO</title>
+
 <style>
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #003e7e, #0074d9);
+    background: #f4f6f9;
     margin: 0;
     padding: 0;
 }
+
 .container {
     max-width: 900px;
-    margin: 50px auto;
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
+
 .logo {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
+
 .logo img {
-    max-width: 220px;
+    max-width: 180px;
 }
+
 h2 {
     text-align: center;
     color: #003e7e;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
+
 .section-title {
-    margin-top: 30px;
     font-weight: bold;
-    color: #003e7e;
-    border-bottom: 2px solid #e6e6e6;
+    margin-top: 20px;
+    border-bottom: 1px solid #ccc;
     padding-bottom: 5px;
 }
-.form-group {
-    margin-top: 15px;
-}
-label {
-    font-weight: bold;
-}
+
 input, textarea {
     width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border-radius: 6px;
+    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
+    border-radius: 4px;
 }
+
 textarea {
     resize: none;
 }
-.checkbox-group {
-    margin-top: 10px;
-}
-.checkbox-group label {
-    font-weight: normal;
-}
+
 .button {
-    margin-top: 30px;
-    background-color: #003e7e;
+    margin-top: 20px;
+    background: #003e7e;
     color: white;
-    padding: 14px;
+    padding: 10px;
     border: none;
     width: 100%;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 6px;
     cursor: pointer;
 }
-.button:hover {
-    background-color: #002a55;
-}
+
 @media print {
+
+    @page {
+        size: A4 landscape;
+        margin: 10mm;
+    }
+
     body {
         background: white;
     }
+
     .button {
         display: none;
     }
+
     .container {
+        width: 140mm;
+        height: 95mm;
         box-shadow: none;
-        margin: 0;
-        border-radius: 0;
+        border: 1px solid black;
+        padding: 15px;
+        margin: 0 auto;
+        page-break-after: always;
+    }
+
+    input, textarea {
+        border: none;
+        border-bottom: 1px solid black;
     }
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -98,54 +110,39 @@ textarea {
 
 <h2>OCORRÊNCIA DE PONTO</h2>
 
-<div class="section-title">DADOS DO TRABALHADOR</div>
+<div class="section-title">DADOS DO COLABORADOR</div>
 
-<div class="form-group">
-<label>Nome do Colaborador</label>
+<label>Nome</label>
 <input type="text">
-</div>
 
-<div class="form-group">
 <label>Cargo</label>
 <input type="text">
-</div>
 
-<div class="form-group">
 <label>CPF (opcional)</label>
 <input type="text">
-</div>
 
-<div class="form-group">
-<label>Data da Ocorrência</label>
+<label>Data</label>
 <input type="date">
-</div>
 
 <div class="section-title">REGISTRO NÃO MARCADO</div>
 
-<div class="checkbox-group">
 <label><input type="checkbox"> Entrada</label><br>
 <label><input type="checkbox"> Saída Intervalo</label><br>
 <label><input type="checkbox"> Retorno Intervalo</label><br>
 <label><input type="checkbox"> Saída</label>
-</div>
 
-<div class="form-group">
-<label>Horário devido da marcação</label>
+<label>Horário</label>
 <input type="time">
-</div>
 
-<div class="form-group">
 <label>Justificativa</label>
-<textarea rows="4"></textarea>
-</div>
+<textarea rows="3"></textarea>
 
-<br><br>
+<br>
 
-<p>Assinatura do Colaborador: ___________________________________________</p>
-<p>Assinatura do Líder: _________________________________________________</p>
-<p>Assinatura RH: ______________________________________________________</p>
+<p>Assinatura Colaborador: ____________________________</p>
+<p>Assinatura Líder: _________________________________</p>
 
-<button class="button" onclick="window.print()">Imprimir Documento</button>
+<button class="button" onclick="window.print()">Imprimir</button>
 
 </div>
 
