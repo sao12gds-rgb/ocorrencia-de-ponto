@@ -28,12 +28,12 @@ body{
 }
 
 .logo img{
-    max-width:160px;
+    max-width:150px;
 }
 
 h2{
     text-align:center;
-    font-size:18px;
+    font-size:17px;
     margin-bottom:15px;
 }
 
@@ -41,6 +41,7 @@ h2{
     font-weight:bold;
     margin-top:10px;
     text-decoration:underline;
+    font-size:14px;
 }
 
 label{
@@ -49,7 +50,7 @@ label{
     font-size:13px;
 }
 
-input, textarea{
+input, select, textarea{
     width:100%;
     border:none;
     border-bottom:1px solid black;
@@ -79,6 +80,8 @@ textarea{
     width:100%;
     cursor:pointer;
 }
+
+/* -------- IMPRESSÃO MEIA FOLHA -------- */
 
 @media print {
 
@@ -165,8 +168,20 @@ textarea{
 <label>Horário devido da marcação:</label>
 <input type="time">
 
-<label>Justifique o motivo da não marcação do ponto:</label>
-<textarea rows="3"></textarea>
+<div class="section-title">Justificativa</div>
+
+<select>
+<option value="">Selecione...</option>
+<option>Esqueceu</option>
+<option>Não reconheceu o momento do registro</option>
+<option>Sem energia</option>
+<option>Problema com ponto</option>
+<option>Não lembra</option>
+<option>Outros</option>
+</select>
+
+<label>Se selecionado "Outros", especifique:</label>
+<textarea rows="2"></textarea>
 
 <br>
 
