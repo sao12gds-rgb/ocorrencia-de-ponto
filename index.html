@@ -6,17 +6,17 @@
 <style>
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
+    background: linear-gradient(135deg, #003e7e, #0074d9);
     margin: 0;
     padding: 0;
 }
 .container {
     max-width: 900px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 .logo {
     text-align: center;
@@ -30,18 +30,25 @@ h2 {
     color: #003e7e;
     margin-bottom: 30px;
 }
+.section-title {
+    margin-top: 30px;
+    font-weight: bold;
+    color: #003e7e;
+    border-bottom: 2px solid #e6e6e6;
+    padding-bottom: 5px;
+}
 .form-group {
-    margin-bottom: 15px;
+    margin-top: 15px;
 }
 label {
     font-weight: bold;
 }
 input, textarea {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 6px;
     border-radius: 6px;
+    border: 1px solid #ccc;
 }
 textarea {
     resize: none;
@@ -49,14 +56,17 @@ textarea {
 .checkbox-group {
     margin-top: 10px;
 }
+.checkbox-group label {
+    font-weight: normal;
+}
 .button {
-    margin-top: 25px;
+    margin-top: 30px;
     background-color: #003e7e;
     color: white;
-    padding: 12px;
+    padding: 14px;
     border: none;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
 }
@@ -64,15 +74,16 @@ textarea {
     background-color: #002a55;
 }
 @media print {
-    .button {
-        display: none;
-    }
     body {
         background: white;
+    }
+    .button {
+        display: none;
     }
     .container {
         box-shadow: none;
         margin: 0;
+        border-radius: 0;
     }
 }
 </style>
@@ -86,6 +97,8 @@ textarea {
 </div>
 
 <h2>OCORRÊNCIA DE PONTO</h2>
+
+<div class="section-title">DADOS DO TRABALHADOR</div>
 
 <div class="form-group">
 <label>Nome do Colaborador</label>
@@ -107,14 +120,13 @@ textarea {
 <input type="date">
 </div>
 
-<hr>
+<div class="section-title">REGISTRO NÃO MARCADO</div>
 
-<label>Registro não marcado</label>
 <div class="checkbox-group">
-<input type="checkbox"> Entrada<br>
-<input type="checkbox"> Saída Intervalo<br>
-<input type="checkbox"> Retorno Intervalo<br>
-<input type="checkbox"> Saída
+<label><input type="checkbox"> Entrada</label><br>
+<label><input type="checkbox"> Saída Intervalo</label><br>
+<label><input type="checkbox"> Retorno Intervalo</label><br>
+<label><input type="checkbox"> Saída</label>
 </div>
 
 <div class="form-group">
