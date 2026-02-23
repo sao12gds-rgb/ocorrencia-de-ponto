@@ -7,95 +7,80 @@
 <style>
 body {
     font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    margin: 0;
-    padding: 0;
+    margin: 20px;
 }
 
 .container {
-    max-width: 900px;
-    margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    max-width: 800px;
+    margin: auto;
 }
 
 .logo {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .logo img {
-    max-width: 180px;
+    max-width: 200px;
 }
 
 h2 {
     text-align: center;
-    color: #003e7e;
     margin-bottom: 20px;
 }
 
 .section-title {
     font-weight: bold;
     margin-top: 20px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
+    text-decoration: underline;
 }
 
 input, textarea {
     width: 100%;
-    padding: 6px;
-    margin-top: 5px;
+    border: none;
+    border-bottom: 1px solid black;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
 textarea {
+    border: 1px solid black;
     resize: none;
+}
+
+.checkbox-group label {
+    display: block;
+    margin-bottom: 5px;
 }
 
 .button {
     margin-top: 20px;
+    padding: 10px;
     background: #003e7e;
     color: white;
-    padding: 10px;
     border: none;
     width: 100%;
-    border-radius: 6px;
     cursor: pointer;
 }
 
 @media print {
 
-    @page {
-        size: A4 landscape;
-        margin: 10mm;
-    }
-
     body {
-        background: white;
+        margin: 10mm;
     }
 
     .button {
         display: none;
     }
 
-    .container {
-        width: 140mm;
-        height: 95mm;
-        box-shadow: none;
-        border: 1px solid black;
-        padding: 15px;
-        margin: 0 auto;
-        page-break-after: always;
-    }
-
     input, textarea {
         border: none;
         border-bottom: 1px solid black;
     }
+
+    textarea {
+        border: 1px solid black;
+    }
+
 }
 </style>
 </head>
@@ -110,39 +95,51 @@ textarea {
 
 <h2>OCORRÊNCIA DE PONTO</h2>
 
-<div class="section-title">DADOS DO COLABORADOR</div>
+<div class="section-title">DADOS DO EMPREGADOR</div>
 
-<label>Nome</label>
+<p><strong>Razão Social:</strong> Gds Logística Ltda</p>
+<p><strong>CNPJ:</strong> 16.637.947/0002-29</p>
+<p><strong>Endereço:</strong> Rua Teodoro de Beaurepaire, 34 – Vila Dom Pedro I – São Paulo/SP</p>
+<p><strong>CEP:</strong> 04279-030</p>
+
+<hr>
+
+<div class="section-title">DADOS DO TRABALHADOR</div>
+
+<label>Nome do Colaborador:</label>
 <input type="text">
 
-<label>Cargo</label>
+<label>Cargo:</label>
 <input type="text">
 
-<label>CPF (opcional)</label>
+<label>CPF (opcional):</label>
 <input type="text">
 
-<label>Data</label>
+<label>Data da Ocorrência:</label>
 <input type="date">
 
-<div class="section-title">REGISTRO NÃO MARCADO</div>
+<div class="section-title">Qual registro não foi marcado</div>
 
-<label><input type="checkbox"> Entrada</label><br>
-<label><input type="checkbox"> Saída Intervalo</label><br>
-<label><input type="checkbox"> Retorno Intervalo</label><br>
+<div class="checkbox-group">
+<label><input type="checkbox"> Entrada</label>
+<label><input type="checkbox"> Saída Intervalo</label>
+<label><input type="checkbox"> Retorno Intervalo</label>
 <label><input type="checkbox"> Saída</label>
+</div>
 
-<label>Horário</label>
+<label>Horário devido da marcação:</label>
 <input type="time">
 
-<label>Justificativa</label>
-<textarea rows="3"></textarea>
+<label>Justificativa:</label>
+<textarea rows="4"></textarea>
 
-<br>
+<br><br>
 
-<p>Assinatura Colaborador: ____________________________</p>
-<p>Assinatura Líder: _________________________________</p>
+<p>Assinatura do colaborador: ___________________________________________</p>
+<p>Assinatura Líder: _________________________________________________</p>
+<p>Assinatura RH: _________________________________________________</p>
 
-<button class="button" onclick="window.print()">Imprimir</button>
+<button class="button" onclick="window.print()">Imprimir Documento</button>
 
 </div>
 
