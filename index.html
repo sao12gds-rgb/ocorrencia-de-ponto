@@ -5,6 +5,7 @@
 <title>OCORRÊNCIA DE PONTO</title>
 
 <style>
+
 body{
     font-family: Arial, sans-serif;
     background:#f4f6f9;
@@ -21,12 +22,6 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
-.ocorrencia{
-    border:1px solid #ccc;
-    padding:15px;
-    margin-top:20px;
-}
-
 .logo{
     text-align:center;
 }
@@ -35,15 +30,14 @@ body{
     max-width:140px;
 }
 
-h3{
+h2{
     text-align:center;
-    margin:5px 0 15px 0;
 }
 
 .section-title{
     font-weight:bold;
     text-decoration:underline;
-    margin-top:10px;
+    margin-top:15px;
 }
 
 label{
@@ -72,6 +66,12 @@ textarea{
     margin-top:5px;
 }
 
+.ocorrencia{
+    border:1px solid #ccc;
+    padding:15px;
+    margin-top:20px;
+}
+
 .horarios{
     margin-top:10px;
 }
@@ -97,7 +97,7 @@ textarea{
         padding:0;
     }
 
-    .button{
+    .button, .controle{
         display:none;
     }
 
@@ -113,37 +113,31 @@ textarea{
         page-break-inside:avoid;
     }
 }
+
 </style>
 
 <script>
 
 function atualizarHorarios(id){
-
     let checkboxes = document.querySelectorAll("#"+id+" input[type=checkbox]:checked");
     let area = document.querySelector("#"+id+" .horarios");
-
     area.innerHTML = "";
 
-    checkboxes.forEach((cb, index) => {
+    checkboxes.forEach(cb=>{
+        let lbl = document.createElement("label");
+        lbl.innerText = "Horário referente a " + cb.parentElement.innerText.trim() + ":";
 
-        let label = document.createElement("label");
-        label.innerText = "Horário referente a " + cb.parentElement.innerText.trim() + ":";
+        let inp = document.createElement("input");
+        inp.type = "time";
 
-        let input = document.createElement("input");
-        input.type = "time";
-
-        area.appendChild(label);
-        area.appendChild(input);
-
+        area.appendChild(lbl);
+        area.appendChild(inp);
     });
-
 }
 
 function alterarQuantidade(){
     let qtd = document.getElementById("quantidade").value;
-    let bloco2 = document.getElementById("oc2");
-
-    bloco2.style.display = (qtd == "2") ? "block" : "none";
+    document.getElementById("oc2").style.display = (qtd=="2") ? "block" : "none";
 }
 
 </script>
@@ -154,7 +148,26 @@ function alterarQuantidade(){
 
 <div class="container">
 
-<div>
+<div class="logo">
+<img src="logo-azulcargo.png">
+</div>
+
+<h2>OCORRÊNCIA DE PONTO</h2>
+
+<div class="section-title">Dados do Trabalhador</div>
+
+<label>Nome:</label>
+<input type="text">
+
+<label>Cargo:</label>
+<input type="text">
+
+<label>CPF (opcional):</label>
+<input type="text">
+
+<hr>
+
+<div class="controle">
 <label>Quantidade de ocorrências:</label>
 <select id="quantidade" onchange="alterarQuantidade()">
 <option value="1">1 Ocorrência</option>
@@ -165,21 +178,9 @@ function alterarQuantidade(){
 <!-- OCORRÊNCIA 1 -->
 <div class="ocorrencia" id="oc1">
 
-<div class="logo">
-<img src="logo-azulcargo.png">
-</div>
+<div class="section-title">Ocorrência 1</div>
 
-<h3>OCORRÊNCIA DE PONTO</h3>
-
-<div class="section-title">Dados do Trabalhador</div>
-
-<label>Nome:</label>
-<input type="text">
-
-<label>Cargo:</label>
-<input type="text">
-
-<label>Data da Ocorrência:</label>
+<label>Data:</label>
 <input type="date">
 
 <div class="section-title">Registro não marcado</div>
@@ -206,31 +207,14 @@ function alterarQuantidade(){
 
 <textarea rows="2" placeholder="Se Outros, especificar"></textarea>
 
-<br>
-
-<p>Assinatura do colaborador: ___________________________________________</p>
-<p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
-
 </div>
 
 <!-- OCORRÊNCIA 2 -->
 <div class="ocorrencia" id="oc2" style="display:none;">
 
-<div class="logo">
-<img src="logo-azulcargo.png">
-</div>
+<div class="section-title">Ocorrência 2</div>
 
-<h3>OCORRÊNCIA DE PONTO</h3>
-
-<div class="section-title">Dados do Trabalhador</div>
-
-<label>Nome:</label>
-<input type="text">
-
-<label>Cargo:</label>
-<input type="text">
-
-<label>Data da Ocorrência:</label>
+<label>Data:</label>
 <input type="date">
 
 <div class="section-title">Registro não marcado</div>
@@ -257,12 +241,12 @@ function alterarQuantidade(){
 
 <textarea rows="2" placeholder="Se Outros, especificar"></textarea>
 
+</div>
+
 <br>
 
 <p>Assinatura do colaborador: ___________________________________________</p>
 <p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
-
-</div>
 
 <button class="button" onclick="window.print()">Imprimir Documento</button>
 
