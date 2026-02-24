@@ -16,10 +16,13 @@ body{
 .container{
     max-width:800px;
     margin:auto;
+}
+
+.ficha{
     background:white;
     padding:20px;
-    border-radius:6px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    margin-top:20px;
+    border:1px solid #ccc;
 }
 
 .logo{
@@ -27,17 +30,18 @@ body{
 }
 
 .logo img{
-    max-width:140px;
+    max-width:130px;
 }
 
-h2{
+h3{
     text-align:center;
+    margin:5px 0 15px 0;
 }
 
 .section-title{
     font-weight:bold;
     text-decoration:underline;
-    margin-top:15px;
+    margin-top:10px;
 }
 
 label{
@@ -66,14 +70,8 @@ textarea{
     margin-top:5px;
 }
 
-.ocorrencia{
-    border:1px solid #ccc;
-    padding:15px;
-    margin-top:20px;
-}
-
 .horarios{
-    margin-top:10px;
+    margin-top:8px;
 }
 
 .button{
@@ -87,6 +85,7 @@ textarea{
 }
 
 @media print{
+
     @page{
         size:A4 portrait;
         margin:15mm;
@@ -101,17 +100,11 @@ textarea{
         display:none;
     }
 
-    .container{
-        box-shadow:none;
-        border:none;
-        padding:0;
-    }
-
-    .ocorrencia{
+    .ficha{
         border:1px solid black;
-        padding:10mm;
         page-break-inside:avoid;
     }
+
 }
 
 </style>
@@ -137,7 +130,7 @@ function atualizarHorarios(id){
 
 function alterarQuantidade(){
     let qtd = document.getElementById("quantidade").value;
-    document.getElementById("oc2").style.display = (qtd=="2") ? "block" : "none";
+    document.getElementById("ficha2").style.display = (qtd=="2") ? "block" : "none";
 }
 
 </script>
@@ -148,11 +141,22 @@ function alterarQuantidade(){
 
 <div class="container">
 
+<div class="controle">
+<label>Quantidade de ocorrências:</label>
+<select id="quantidade" onchange="alterarQuantidade()">
+<option value="1">1 Ocorrência</option>
+<option value="2">2 Ocorrências</option>
+</select>
+</div>
+
+<!-- FICHA 1 -->
+<div class="ficha" id="ficha1">
+
 <div class="logo">
 <img src="logo-azulcargo.png">
 </div>
 
-<h2>OCORRÊNCIA DE PONTO</h2>
+<h3>OCORRÊNCIA DE PONTO</h3>
 
 <div class="section-title">Dados do Trabalhador</div>
 
@@ -165,31 +169,16 @@ function alterarQuantidade(){
 <label>CPF (opcional):</label>
 <input type="text">
 
-<hr>
-
-<div class="controle">
-<label>Quantidade de ocorrências:</label>
-<select id="quantidade" onchange="alterarQuantidade()">
-<option value="1">1 Ocorrência</option>
-<option value="2">2 Ocorrências</option>
-</select>
-</div>
-
-<!-- OCORRÊNCIA 1 -->
-<div class="ocorrencia" id="oc1">
-
-<div class="section-title">Ocorrência 1</div>
-
-<label>Data:</label>
+<label>Data da Ocorrência:</label>
 <input type="date">
 
 <div class="section-title">Registro não marcado</div>
 
 <div class="checkbox-group">
-<label><input type="checkbox" onchange="atualizarHorarios('oc1')"> Entrada</label>
-<label><input type="checkbox" onchange="atualizarHorarios('oc1')"> Saída Intervalo</label>
-<label><input type="checkbox" onchange="atualizarHorarios('oc1')"> Retorno Intervalo</label>
-<label><input type="checkbox" onchange="atualizarHorarios('oc1')"> Saída</label>
+<label><input type="checkbox" onchange="atualizarHorarios('ficha1')"> Entrada</label>
+<label><input type="checkbox" onchange="atualizarHorarios('ficha1')"> Saída Intervalo</label>
+<label><input type="checkbox" onchange="atualizarHorarios('ficha1')"> Retorno Intervalo</label>
+<label><input type="checkbox" onchange="atualizarHorarios('ficha1')"> Saída</label>
 </div>
 
 <div class="horarios"></div>
@@ -206,47 +195,67 @@ function alterarQuantidade(){
 </select>
 
 <textarea rows="2" placeholder="Se Outros, especificar"></textarea>
-
-</div>
-
-<!-- OCORRÊNCIA 2 -->
-<div class="ocorrencia" id="oc2" style="display:none;">
-
-<div class="section-title">Ocorrência 2</div>
-
-<label>Data:</label>
-<input type="date">
-
-<div class="section-title">Registro não marcado</div>
-
-<div class="checkbox-group">
-<label><input type="checkbox" onchange="atualizarHorarios('oc2')"> Entrada</label>
-<label><input type="checkbox" onchange="atualizarHorarios('oc2')"> Saída Intervalo</label>
-<label><input type="checkbox" onchange="atualizarHorarios('oc2')"> Retorno Intervalo</label>
-<label><input type="checkbox" onchange="atualizarHorarios('oc2')"> Saída</label>
-</div>
-
-<div class="horarios"></div>
-
-<div class="section-title">Justificativa</div>
-
-<select>
-<option>Esqueceu</option>
-<option>Não reconheceu o momento do registro</option>
-<option>Sem energia</option>
-<option>Problema com ponto</option>
-<option>Não lembra</option>
-<option>Outros</option>
-</select>
-
-<textarea rows="2" placeholder="Se Outros, especificar"></textarea>
-
-</div>
 
 <br>
 
 <p>Assinatura do colaborador: ___________________________________________</p>
 <p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
+
+</div>
+
+<!-- FICHA 2 -->
+<div class="ficha" id="ficha2" style="display:none;">
+
+<div class="logo">
+<img src="logo-azulcargo.png">
+</div>
+
+<h3>OCORRÊNCIA DE PONTO</h3>
+
+<div class="section-title">Dados do Trabalhador</div>
+
+<label>Nome:</label>
+<input type="text">
+
+<label>Cargo:</label>
+<input type="text">
+
+<label>CPF (opcional):</label>
+<input type="text">
+
+<label>Data da Ocorrência:</label>
+<input type="date">
+
+<div class="section-title">Registro não marcado</div>
+
+<div class="checkbox-group">
+<label><input type="checkbox" onchange="atualizarHorarios('ficha2')"> Entrada</label>
+<label><input type="checkbox" onchange="atualizarHorarios('ficha2')"> Saída Intervalo</label>
+<label><input type="checkbox" onchange="atualizarHorarios('ficha2')"> Retorno Intervalo</label>
+<label><input type="checkbox" onchange="atualizarHorarios('ficha2')"> Saída</label>
+</div>
+
+<div class="horarios"></div>
+
+<div class="section-title">Justificativa</div>
+
+<select>
+<option>Esqueceu</option>
+<option>Não reconheceu o momento do registro</option>
+<option>Sem energia</option>
+<option>Problema com ponto</option>
+<option>Não lembra</option>
+<option>Outros</option>
+</select>
+
+<textarea rows="2" placeholder="Se Outros, especificar"></textarea>
+
+<br>
+
+<p>Assinatura do colaborador: ___________________________________________</p>
+<p>Assinatura Líder: _________________________ Assinatura RH: _________________________</p>
+
+</div>
 
 <button class="button" onclick="window.print()">Imprimir Documento</button>
 
