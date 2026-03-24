@@ -13,13 +13,14 @@ body{
     margin:0;
     padding:20px;
     background:#f4f6f9;
-    font-family:Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     color:#000;
 }
 
 .container{
     max-width:900px;
     margin:auto;
+    text-align:left;
 }
 
 .ficha{
@@ -35,7 +36,7 @@ body{
 .topo{
     position:relative;
     min-height:90px;
-    margin-bottom:14px;
+    margin-bottom:10px;
 }
 
 .logo-box{
@@ -69,7 +70,7 @@ body{
 .bloco{
     border:1px solid #000;
     padding:14px 10px 10px 10px;
-    margin-top:12px;
+    margin-top:10px;
     position:relative;
 }
 
@@ -96,7 +97,8 @@ label{
     white-space:nowrap;
 }
 
-input, select{
+input,
+select{
     border:none;
     border-bottom:1px solid #000;
     background:transparent;
@@ -104,6 +106,7 @@ input, select{
     font-size:13px;
     padding:2px 3px;
     color:#000;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 select{
@@ -188,6 +191,23 @@ select{
     gap:14px;
 }
 
+.area-botao{
+    max-width:900px;
+    margin:20px auto 0 auto;
+    text-align:center;
+}
+
+.btn-print{
+    width:100%;
+    max-width:300px;
+    height:40px;
+    background:#000;
+    color:#fff;
+    border:none;
+    font-size:14px;
+    cursor:pointer;
+}
+
 @media print{
     @page{
         size:A4 portrait;
@@ -197,11 +217,22 @@ select{
     body{
         background:#fff;
         padding:0;
+        font-family:Arial, Helvetica, sans-serif;
     }
 
     .ficha{
         border:none;
         margin:0;
+    }
+
+    input,
+    select{
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .area-botao,
+    .btn-print{
+        display:none !important;
     }
 }
 </style>
@@ -259,11 +290,11 @@ select{
                 <label>CPF:</label>
                 <input type="text" class="w-cpf cpf" readonly>
             </div>
+        </div>
 
-            <div class="linha">
-                <label>Data Ocorrência:</label>
-                <input type="date" class="w-data">
-            </div>
+        <div class="linha">
+            <label>Data Ocorrência:</label>
+            <input type="text" class="w-data" placeholder="dd/mm/aaaa">
         </div>
 
         <div class="pergunta">Qual registro não foi marcado</div>
@@ -305,6 +336,10 @@ select{
         </div>
 
     </div>
+</div>
+
+<div class="area-botao">
+    <button class="btn-print" onclick="window.print()">Imprimir</button>
 </div>
 
 <script>
