@@ -23,28 +23,60 @@ body{
     text-align:left;
 }
 
-.ficha{
+.area-controle{
+    max-width:900px;
+    margin:0 auto 15px auto;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.area-controle label{
+    font-size:13px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.area-controle select{
+    border:1px solid #999;
+    background:#fff;
+    height:32px;
+    font-size:13px;
+    padding:4px 8px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.folha{
     width:210mm;
     min-height:297mm;
     margin:auto;
     background:#fff;
-    padding:18mm 10mm 20mm 10mm;
+    padding:10mm 10mm 12mm 10mm;
     border:1px solid #ccc;
     position:relative;
 }
 
+.ocorrencia{
+    width:100%;
+}
+
+.ocorrencia + .ocorrencia{
+    margin-top:10mm;
+    padding-top:6mm;
+    border-top:1px dashed #999;
+}
+
 .topo{
     position:relative;
-    min-height:90px;
-    margin-bottom:10px;
+    min-height:68px;
+    margin-bottom:8px;
 }
 
 .logo-box{
     position:absolute;
     top:0;
     left:0;
-    width:150px;
-    height:90px;
+    width:120px;
+    height:68px;
     display:flex;
     align-items:flex-start;
     justify-content:center;
@@ -52,8 +84,8 @@ body{
 }
 
 .logo-box img{
-    max-width:115px;
-    max-height:80px;
+    max-width:90px;
+    max-height:62px;
     width:auto;
     height:auto;
     display:block;
@@ -64,14 +96,14 @@ body{
     font-family:Arial, Helvetica, sans-serif;
     font-weight:bold;
     text-decoration:underline;
-    font-size:16px;
-    line-height:90px;
+    font-size:15px;
+    line-height:68px;
 }
 
 .bloco{
     border:1px solid #000;
-    padding:14px 10px 10px 10px;
-    margin-top:10px;
+    padding:12px 10px 8px 10px;
+    margin-top:8px;
     position:relative;
 }
 
@@ -89,7 +121,7 @@ body{
 .linha{
     display:flex;
     gap:10px;
-    margin-top:10px;
+    margin-top:8px;
     align-items:flex-end;
     flex-wrap:wrap;
 }
@@ -116,42 +148,42 @@ select{
     font-weight:normal;
 }
 
-select{
+.folha select{
     background:#fff;
 }
 
 .w-razao{
-    width:370px;
+    width:390px;
 }
 
 .w-endereco{
-    width:540px;
+    width:560px;
 }
 
 .w-nome{
-    width:330px;
+    width:350px;
 }
 
 .w-cargo{
-    width:170px;
+    width:180px;
 }
 
 .w-cpf{
-    width:130px;
-}
-
-.w-data{
     width:150px;
 }
 
+.w-data{
+    width:160px;
+}
+
 .pergunta{
-    margin-top:18px;
+    margin-top:14px;
 }
 
 .opcoes{
     display:flex;
     gap:18px;
-    margin-top:12px;
+    margin-top:10px;
     flex-wrap:wrap;
 }
 
@@ -162,7 +194,7 @@ select{
 }
 
 .linha-texto{
-    margin-top:18px;
+    margin-top:14px;
     display:flex;
     gap:10px;
     align-items:flex-end;
@@ -175,11 +207,11 @@ select{
 }
 
 .assinaturas{
-    margin-top:22px;
+    margin-top:16px;
 }
 
 .assinatura{
-    margin-top:14px;
+    margin-top:10px;
     display:flex;
     gap:10px;
     align-items:flex-end;
@@ -227,21 +259,15 @@ select{
         font-family:Arial, Helvetica, sans-serif;
     }
 
-    .ficha{
+    .folha{
         border:none;
         margin:0;
-    }
-
-    input,
-    select,
-    label,
-    span,
-    .pergunta{
-        font-family:Arial, Helvetica, sans-serif;
+        min-height:297mm;
     }
 
     .area-botao,
-    .btn-print{
+    .btn-print,
+    .area-controle{
         display:none !important;
     }
 }
@@ -251,152 +277,315 @@ select{
 <body>
 
 <div class="container">
-    <div class="ficha">
 
-        <div class="topo">
-            <div class="logo-box">
-                <img src="LogodaMarca.png" alt="Logo">
+    <div class="area-controle">
+        <label for="quantidadeOcorrencias">Quantidade de ocorrências na folha:</label>
+        <select id="quantidadeOcorrencias" onchange="alternarOcorrencias()">
+            <option value="1">1 ocorrência</option>
+            <option value="2">2 ocorrências</option>
+        </select>
+    </div>
+
+    <div class="folha">
+
+        <!-- OCORRÊNCIA 1 -->
+        <div class="ocorrencia" id="ocorrencia1">
+            <div class="topo">
+                <div class="logo-box">
+                    <img src="LogodaMarca.png" alt="Logo">
+                </div>
+                <div class="titulo">Correções e lançamentos manuais</div>
             </div>
-            <div class="titulo">Correções e lançamentos manuais</div>
-        </div>
 
-        <div class="bloco">
-            <div class="bloco-titulo">DADOS DO EMPREGADOR</div>
+            <div class="bloco">
+                <div class="bloco-titulo">DADOS DO EMPREGADOR</div>
+
+                <div class="linha">
+                    <label>Razão Social:</label>
+                    <select class="w-razao">
+                        <option value="">Selecionar empregador</option>
+                        <option value="16.637.947/0002-29">16.637.947/0002-29 - Gds Logistica Filial</option>
+                        <option value="55.990.578/0001-24">55.990.578/0001-24 - CDSP2 Logistica Ltda</option>
+                        <option value="29.727.360/0001-71">29.727.360/0001-71 - GdsLog Soluções Ltda</option>
+                    </select>
+                </div>
+
+                <div class="linha">
+                    <label>Endereço:</label>
+                    <input type="text" class="w-endereco" value="Rua Teodoro de Beaurepaire, 34, Ipiranga, São Paulo - SP, 04279-030" readonly>
+                </div>
+            </div>
+
+            <div class="bloco">
+                <div class="bloco-titulo">DADOS DO TRABALHADOR</div>
+
+                <div class="linha">
+                    <label>NOME DO COLABORADOR:</label>
+                    <select class="w-nome" onchange="preencher(this, 'ocorrencia1')">
+                        <option value="">Selecionar</option>
+                        <option value="CLECIA DA SILVA">CLECIA DA SILVA</option>
+                        <option value="JULIA DE ASSIS DA SILVA">JULIA DE ASSIS DA SILVA</option>
+                        <option value="LUIS CARLOS DOS SANTOS">LUIS CARLOS DOS SANTOS</option>
+                        <option value="NICOLLAS DOMINGUES SILVA">NICOLLAS DOMINGUES SILVA</option>
+                        <option value="PAULO HENRIQUE GONÇALVES DE JESUS">PAULO HENRIQUE GONÇALVES DE JESUS</option>
+                        <option value="ROSEANE FRANÇA DE SOUZA">ROSEANE FRANÇA DE SOUZA</option>
+                        <option value="VICTOR DE AQUINO OLIVEIRA">VICTOR DE AQUINO OLIVEIRA</option>
+                        <option value="WELLINGTON NOGUEIRA DE SOUZA">WELLINGTON NOGUEIRA DE SOUZA</option>
+                        <option value="ESTER DE ANDRADE GOMES">ESTER DE ANDRADE GOMES</option>
+                        <option value="GUSTAVO FERREIRA DE OLIVEIRA">GUSTAVO FERREIRA DE OLIVEIRA</option>
+                        <option value="GUSTAVO GABRIEL MORAES AMORIM">GUSTAVO GABRIEL MORAES AMORIM</option>
+                        <option value="NILSON DA SILVA LIMA">NILSON DA SILVA LIMA</option>
+                        <option value="EDSON CASARI AMORIN">EDSON CASARI AMORIN</option>
+                        <option value="GABRIEL PEREIRA DOS REIS">GABRIEL PEREIRA DOS REIS</option>
+                        <option value="GENIVAL VIEIRA DA SILVA JUNIOR">GENIVAL VIEIRA DA SILVA JUNIOR</option>
+                        <option value="LAYSA VITORIA VIEIRA SANTIAGO">LAYSA VITORIA VIEIRA SANTIAGO</option>
+                        <option value="LEONARDO CHAGAS AGUIAR">LEONARDO CHAGAS AGUIAR</option>
+                        <option value="LUCAS MATEUS AUGUSTA">LUCAS MATEUS AUGUSTA</option>
+                        <option value="MARCELO DA SILVA ARAUJO">MARCELO DA SILVA ARAUJO</option>
+                        <option value="PAOLA VITORIA DA SILVA SOUSA">PAOLA VITORIA DA SILVA SOUSA</option>
+                        <option value="VITOR VINICIUS FERREIRA DO CARMO SCAVUZZ">VITOR VINICIUS FERREIRA DO CARMO SCAVUZZ</option>
+                        <option value="WALLACY THOMAS DA SILVA CAVALCANTE">WALLACY THOMAS DA SILVA CAVALCANTE</option>
+                        <option value="EUCLIDES ENRIQUE PADOVEZI">EUCLIDES ENRIQUE PADOVEZI</option>
+                        <option value="ALBERTO JUNIOR DOS SANTOS">ALBERTO JUNIOR DOS SANTOS</option>
+                        <option value="ANDERSON ARAUJO DE SOUSA">ANDERSON ARAUJO DE SOUSA</option>
+                        <option value="FLAVIO CIRILO VIANA DE OLIVEIRA">FLAVIO CIRILO VIANA DE OLIVEIRA</option>
+                        <option value="MARCOS FERREIRA MACIEL">MARCOS FERREIRA MACIEL</option>
+                        <option value="GUILHERME HERMINIO MARINHO">GUILHERME HERMINIO MARINHO</option>
+                        <option value="LEONARDO PEREIRA GARCIA">LEONARDO PEREIRA GARCIA</option>
+                        <option value="WESLEY TEIXEIRA DE OLIVEIRA">WESLEY TEIXEIRA DE OLIVEIRA</option>
+                        <option value="AGUINALDO TIMOTEO DOS SANTOS">AGUINALDO TIMOTEO DOS SANTOS</option>
+                        <option value="CARLOS ALBERTO LUZ DE SOUZA">CARLOS ALBERTO LUZ DE SOUZA</option>
+                        <option value="DANIEL ABADE DE MELO">DANIEL ABADE DE MELO</option>
+                        <option value="FABRICIO DA SILVA">FABRICIO DA SILVA</option>
+                        <option value="JOSENALDO BATISTA DE OLIVEIRA">JOSENALDO BATISTA DE OLIVEIRA</option>
+                        <option value="PAULO JOSÉ MORAIS DO NASCIMENTO">PAULO JOSÉ MORAIS DO NASCIMENTO</option>
+                        <option value="SILESIO PEREIRA NUNES">SILESIO PEREIRA NUNES</option>
+                        <option value="THOMAS ROGERIO BATISTA">THOMAS ROGERIO BATISTA</option>
+                        <option value="GILMAR JOSÉ DOS SANTOS">GILMAR JOSÉ DOS SANTOS</option>
+                        <option value="RONILDO HERMINIO">RONILDO HERMINIO</option>
+                        <option value="AUSTREGELIO BARBOSA DE QUEIROZ">AUSTREGELIO BARBOSA DE QUEIROZ</option>
+                        <option value="DAVID SILVESTRE PEREIRA">DAVID SILVESTRE PEREIRA</option>
+                        <option value="DOUGLAS MANCINI CARLOS">DOUGLAS MANCINI CARLOS</option>
+                        <option value="MARLON DOS SANTOS">MARLON DOS SANTOS</option>
+                        <option value="RICARDO RAIMUNDO DA SILVA">RICARDO RAIMUNDO DA SILVA</option>
+                        <option value="RODRIGO LIMA HENRIQUE">RODRIGO LIMA HENRIQUE</option>
+                        <option value="WEVERTON FRANCISCO DA SILVA">WEVERTON FRANCISCO DA SILVA</option>
+                        <option value="WILLAS ELEUTÉRIO DA SILVA">WILLAS ELEUTÉRIO DA SILVA</option>
+                        <option value="WILLIAN DOS SANTOS SILVA">WILLIAN DOS SANTOS SILVA</option>
+                        <option value="ALICE DA SILVA SANTOS">ALICE DA SILVA SANTOS</option>
+                        <option value="THAINA MELO MEDEIROS">THAINA MELO MEDEIROS</option>
+                        <option value="ANA PAULA SOUZA">ANA PAULA SOUZA</option>
+                        <option value="RAFAELA GARCIA DE OLIVEIRA TEIXEIRA">RAFAELA GARCIA DE OLIVEIRA TEIXEIRA</option>
+                        <option value="VINICIUS DE LIMA SOARES">VINICIUS DE LIMA SOARES</option>
+                        <option value="ALEX LEANDRO RIBEIRO DA SILVA">ALEX LEANDRO RIBEIRO DA SILVA</option>
+                        <option value="GEISA SANTOS SOUSA">GEISA SANTOS SOUSA</option>
+                        <option value="GIULIA RIBEIRO ZERBINI">GIULIA RIBEIRO ZERBINI</option>
+                        <option value="KELLI CRISTINA OLIVEIRA RODRIGUES">KELLI CRISTINA OLIVEIRA RODRIGUES</option>
+                        <option value="RAFAELA MOTA DA SILVA">RAFAELA MOTA DA SILVA</option>
+                        <option value="STEFANY NASCIMENTO DIAS">STEFANY NASCIMENTO DIAS</option>
+                    </select>
+                </div>
+
+                <div class="linha">
+                    <label>CARGO:</label>
+                    <input type="text" class="w-cargo cargo" readonly>
+
+                    <label>CPF:</label>
+                    <input type="text" class="w-cpf cpf" readonly>
+                </div>
+            </div>
 
             <div class="linha">
-                <label>Razão Social:</label>
-                <select class="w-razao">
-                    <option value="">Selecionar empregador</option>
-                    <option value="16.637.947/0002-29">16.637.947/0002-29 - Gds Logistica Filial</option>
-                    <option value="55.990.578/0001-24">55.990.578/0001-24 - CDSP2 Logistica Ltda</option>
-                    <option value="29.727.360/0001-71">29.727.360/0001-71 - GdsLog Soluções Ltda</option>
-                </select>
+                <label>Data Ocorrência:</label>
+                <input type="date" class="w-data">
             </div>
 
-            <div class="linha">
-                <label>Endereço:</label>
-                <input type="text" class="w-endereco" value="Rua Teodoro de Beaurepaire, 34, Ipiranga, São Paulo - SP, 04279-030" readonly>
-            </div>
-        </div>
+            <div class="pergunta">Qual registro não foi marcado</div>
 
-        <div class="bloco">
-            <div class="bloco-titulo">DADOS DO TRABALHADOR</div>
-
-            <div class="linha">
-                <label>NOME DO COLABORADOR:</label>
-                <select class="w-nome" onchange="preencher(this)">
-                    <option value="">Selecionar</option>
-                    <option value="CLECIA DA SILVA">CLECIA DA SILVA</option>
-                    <option value="JULIA DE ASSIS DA SILVA">JULIA DE ASSIS DA SILVA</option>
-                    <option value="LUIS CARLOS DOS SANTOS">LUIS CARLOS DOS SANTOS</option>
-                    <option value="NICOLLAS DOMINGUES SILVA">NICOLLAS DOMINGUES SILVA</option>
-                    <option value="PAULO HENRIQUE GONÇALVES DE JESUS">PAULO HENRIQUE GONÇALVES DE JESUS</option>
-                    <option value="ROSEANE FRANÇA DE SOUZA">ROSEANE FRANÇA DE SOUZA</option>
-                    <option value="VICTOR DE AQUINO OLIVEIRA">VICTOR DE AQUINO OLIVEIRA</option>
-                    <option value="WELLINGTON NOGUEIRA DE SOUZA">WELLINGTON NOGUEIRA DE SOUZA</option>
-                    <option value="ESTER DE ANDRADE GOMES">ESTER DE ANDRADE GOMES</option>
-                    <option value="GUSTAVO FERREIRA DE OLIVEIRA">GUSTAVO FERREIRA DE OLIVEIRA</option>
-                    <option value="GUSTAVO GABRIEL MORAES AMORIM">GUSTAVO GABRIEL MORAES AMORIM</option>
-                    <option value="NILSON DA SILVA LIMA">NILSON DA SILVA LIMA</option>
-                    <option value="EDSON CASARI AMORIN">EDSON CASARI AMORIN</option>
-                    <option value="GABRIEL PEREIRA DOS REIS">GABRIEL PEREIRA DOS REIS</option>
-                    <option value="GENIVAL VIEIRA DA SILVA JUNIOR">GENIVAL VIEIRA DA SILVA JUNIOR</option>
-                    <option value="LAYSA VITORIA VIEIRA SANTIAGO">LAYSA VITORIA VIEIRA SANTIAGO</option>
-                    <option value="LEONARDO CHAGAS AGUIAR">LEONARDO CHAGAS AGUIAR</option>
-                    <option value="LUCAS MATEUS AUGUSTA">LUCAS MATEUS AUGUSTA</option>
-                    <option value="MARCELO DA SILVA ARAUJO">MARCELO DA SILVA ARAUJO</option>
-                    <option value="PAOLA VITORIA DA SILVA SOUSA">PAOLA VITORIA DA SILVA SOUSA</option>
-                    <option value="VITOR VINICIUS FERREIRA DO CARMO SCAVUZZ">VITOR VINICIUS FERREIRA DO CARMO SCAVUZZ</option>
-                    <option value="WALLACY THOMAS DA SILVA CAVALCANTE">WALLACY THOMAS DA SILVA CAVALCANTE</option>
-                    <option value="EUCLIDES ENRIQUE PADOVEZI">EUCLIDES ENRIQUE PADOVEZI</option>
-                    <option value="ALBERTO JUNIOR DOS SANTOS">ALBERTO JUNIOR DOS SANTOS</option>
-                    <option value="ANDERSON ARAUJO DE SOUSA">ANDERSON ARAUJO DE SOUSA</option>
-                    <option value="FLAVIO CIRILO VIANA DE OLIVEIRA">FLAVIO CIRILO VIANA DE OLIVEIRA</option>
-                    <option value="MARCOS FERREIRA MACIEL">MARCOS FERREIRA MACIEL</option>
-                    <option value="GUILHERME HERMINIO MARINHO">GUILHERME HERMINIO MARINHO</option>
-                    <option value="LEONARDO PEREIRA GARCIA">LEONARDO PEREIRA GARCIA</option>
-                    <option value="WESLEY TEIXEIRA DE OLIVEIRA">WESLEY TEIXEIRA DE OLIVEIRA</option>
-                    <option value="AGUINALDO TIMOTEO DOS SANTOS">AGUINALDO TIMOTEO DOS SANTOS</option>
-                    <option value="CARLOS ALBERTO LUZ DE SOUZA">CARLOS ALBERTO LUZ DE SOUZA</option>
-                    <option value="DANIEL ABADE DE MELO">DANIEL ABADE DE MELO</option>
-                    <option value="FABRICIO DA SILVA">FABRICIO DA SILVA</option>
-                    <option value="JOSENALDO BATISTA DE OLIVEIRA">JOSENALDO BATISTA DE OLIVEIRA</option>
-                    <option value="PAULO JOSÉ MORAIS DO NASCIMENTO">PAULO JOSÉ MORAIS DO NASCIMENTO</option>
-                    <option value="SILESIO PEREIRA NUNES">SILESIO PEREIRA NUNES</option>
-                    <option value="THOMAS ROGERIO BATISTA">THOMAS ROGERIO BATISTA</option>
-                    <option value="GILMAR JOSÉ DOS SANTOS">GILMAR JOSÉ DOS SANTOS</option>
-                    <option value="RONILDO HERMINIO">RONILDO HERMINIO</option>
-                    <option value="AUSTREGELIO BARBOSA DE QUEIROZ">AUSTREGELIO BARBOSA DE QUEIROZ</option>
-                    <option value="DAVID SILVESTRE PEREIRA">DAVID SILVESTRE PEREIRA</option>
-                    <option value="DOUGLAS MANCINI CARLOS">DOUGLAS MANCINI CARLOS</option>
-                    <option value="MARLON DOS SANTOS">MARLON DOS SANTOS</option>
-                    <option value="RICARDO RAIMUNDO DA SILVA">RICARDO RAIMUNDO DA SILVA</option>
-                    <option value="RODRIGO LIMA HENRIQUE">RODRIGO LIMA HENRIQUE</option>
-                    <option value="WEVERTON FRANCISCO DA SILVA">WEVERTON FRANCISCO DA SILVA</option>
-                    <option value="WILLAS ELEUTÉRIO DA SILVA">WILLAS ELEUTÉRIO DA SILVA</option>
-                    <option value="WILLIAN DOS SANTOS SILVA">WILLIAN DOS SANTOS SILVA</option>
-                    <option value="ALICE DA SILVA SANTOS">ALICE DA SILVA SANTOS</option>
-                    <option value="THAINA MELO MEDEIROS">THAINA MELO MEDEIROS</option>
-                    <option value="ANA PAULA SOUZA">ANA PAULA SOUZA</option>
-                    <option value="RAFAELA GARCIA DE OLIVEIRA TEIXEIRA">RAFAELA GARCIA DE OLIVEIRA TEIXEIRA</option>
-                    <option value="VINICIUS DE LIMA SOARES">VINICIUS DE LIMA SOARES</option>
-                    <option value="ALEX LEANDRO RIBEIRO DA SILVA">ALEX LEANDRO RIBEIRO DA SILVA</option>
-                    <option value="GEISA SANTOS SOUSA">GEISA SANTOS SOUSA</option>
-                    <option value="GIULIA RIBEIRO ZERBINI">GIULIA RIBEIRO ZERBINI</option>
-                    <option value="KELLI CRISTINA OLIVEIRA RODRIGUES">KELLI CRISTINA OLIVEIRA RODRIGUES</option>
-                    <option value="RAFAELA MOTA DA SILVA">RAFAELA MOTA DA SILVA</option>
-                    <option value="STEFANY NASCIMENTO DIAS">STEFANY NASCIMENTO DIAS</option>
-                </select>
+            <div class="opcoes">
+                <label><input type="radio" name="reg1"> Entrada</label>
+                <label><input type="radio" name="reg1"> Saída Intervalo</label>
+                <label><input type="radio" name="reg1"> Retorno Intervalo</label>
+                <label><input type="radio" name="reg1"> Saída</label>
             </div>
 
-            <div class="linha">
-                <label>CARGO:</label>
-                <input type="text" class="w-cargo cargo" readonly>
-
-                <label>CPF:</label>
-                <input type="text" class="w-cpf cpf" readonly>
-            </div>
-        </div>
-
-        <div class="linha">
-            <label>Data Ocorrência:</label>
-            <input type="date" class="w-data">
-        </div>
-
-        <div class="pergunta">Qual registro não foi marcado</div>
-
-        <div class="opcoes">
-            <label><input type="radio" name="reg"> Entrada</label>
-            <label><input type="radio" name="reg"> Saída Intervalo</label>
-            <label><input type="radio" name="reg"> Retorno Intervalo</label>
-            <label><input type="radio" name="reg"> Saída</label>
-        </div>
-
-        <div class="linha-texto">
-            <label>Horário devido da marcação:</label>
-            <input type="time">
-        </div>
-
-        <div class="linha-texto">
-            <label>Justifique o motivo para a não marcação do ponto:</label>
-            <input type="text">
-        </div>
-
-        <div class="assinaturas">
-            <div class="assinatura">
-                <span>Assinatura do colaborador:</span>
-                <div class="traco"></div>
+            <div class="linha-texto">
+                <label>Horário devido da marcação:</label>
+                <input type="time">
             </div>
 
-            <div class="dupla">
+            <div class="linha-texto">
+                <label>Justifique o motivo para a não marcação do ponto:</label>
+                <input type="text">
+            </div>
+
+            <div class="assinaturas">
                 <div class="assinatura">
-                    <span>Assinatura Líder:</span>
+                    <span>Assinatura do colaborador:</span>
                     <div class="traco"></div>
                 </div>
 
+                <div class="dupla">
+                    <div class="assinatura">
+                        <span>Assinatura Líder:</span>
+                        <div class="traco"></div>
+                    </div>
+
+                    <div class="assinatura">
+                        <span>Assinatura RH:</span>
+                        <div class="traco"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OCORRÊNCIA 2 -->
+        <div class="ocorrencia" id="ocorrencia2" style="display:none;">
+            <div class="topo">
+                <div class="logo-box">
+                    <img src="LogodaMarca.png" alt="Logo">
+                </div>
+                <div class="titulo">Correções e lançamentos manuais</div>
+            </div>
+
+            <div class="bloco">
+                <div class="bloco-titulo">DADOS DO EMPREGADOR</div>
+
+                <div class="linha">
+                    <label>Razão Social:</label>
+                    <select class="w-razao">
+                        <option value="">Selecionar empregador</option>
+                        <option value="16.637.947/0002-29">16.637.947/0002-29 - Gds Logistica Filial</option>
+                        <option value="55.990.578/0001-24">55.990.578/0001-24 - CDSP2 Logistica Ltda</option>
+                        <option value="29.727.360/0001-71">29.727.360/0001-71 - GdsLog Soluções Ltda</option>
+                    </select>
+                </div>
+
+                <div class="linha">
+                    <label>Endereço:</label>
+                    <input type="text" class="w-endereco" value="Rua Teodoro de Beaurepaire, 34, Ipiranga, São Paulo - SP, 04279-030" readonly>
+                </div>
+            </div>
+
+            <div class="bloco">
+                <div class="bloco-titulo">DADOS DO TRABALHADOR</div>
+
+                <div class="linha">
+                    <label>NOME DO COLABORADOR:</label>
+                    <select class="w-nome" onchange="preencher(this, 'ocorrencia2')">
+                        <option value="">Selecionar</option>
+                        <option value="CLECIA DA SILVA">CLECIA DA SILVA</option>
+                        <option value="JULIA DE ASSIS DA SILVA">JULIA DE ASSIS DA SILVA</option>
+                        <option value="LUIS CARLOS DOS SANTOS">LUIS CARLOS DOS SANTOS</option>
+                        <option value="NICOLLAS DOMINGUES SILVA">NICOLLAS DOMINGUES SILVA</option>
+                        <option value="PAULO HENRIQUE GONÇALVES DE JESUS">PAULO HENRIQUE GONÇALVES DE JESUS</option>
+                        <option value="ROSEANE FRANÇA DE SOUZA">ROSEANE FRANÇA DE SOUZA</option>
+                        <option value="VICTOR DE AQUINO OLIVEIRA">VICTOR DE AQUINO OLIVEIRA</option>
+                        <option value="WELLINGTON NOGUEIRA DE SOUZA">WELLINGTON NOGUEIRA DE SOUZA</option>
+                        <option value="ESTER DE ANDRADE GOMES">ESTER DE ANDRADE GOMES</option>
+                        <option value="GUSTAVO FERREIRA DE OLIVEIRA">GUSTAVO FERREIRA DE OLIVEIRA</option>
+                        <option value="GUSTAVO GABRIEL MORAES AMORIM">GUSTAVO GABRIEL MORAES AMORIM</option>
+                        <option value="NILSON DA SILVA LIMA">NILSON DA SILVA LIMA</option>
+                        <option value="EDSON CASARI AMORIN">EDSON CASARI AMORIN</option>
+                        <option value="GABRIEL PEREIRA DOS REIS">GABRIEL PEREIRA DOS REIS</option>
+                        <option value="GENIVAL VIEIRA DA SILVA JUNIOR">GENIVAL VIEIRA DA SILVA JUNIOR</option>
+                        <option value="LAYSA VITORIA VIEIRA SANTIAGO">LAYSA VITORIA VIEIRA SANTIAGO</option>
+                        <option value="LEONARDO CHAGAS AGUIAR">LEONARDO CHAGAS AGUIAR</option>
+                        <option value="LUCAS MATEUS AUGUSTA">LUCAS MATEUS AUGUSTA</option>
+                        <option value="MARCELO DA SILVA ARAUJO">MARCELO DA SILVA ARAUJO</option>
+                        <option value="PAOLA VITORIA DA SILVA SOUSA">PAOLA VITORIA DA SILVA SOUSA</option>
+                        <option value="VITOR VINICIUS FERREIRA DO CARMO SCAVUZZ">VITOR VINICIUS FERREIRA DO CARMO SCAVUZZ</option>
+                        <option value="WALLACY THOMAS DA SILVA CAVALCANTE">WALLACY THOMAS DA SILVA CAVALCANTE</option>
+                        <option value="EUCLIDES ENRIQUE PADOVEZI">EUCLIDES ENRIQUE PADOVEZI</option>
+                        <option value="ALBERTO JUNIOR DOS SANTOS">ALBERTO JUNIOR DOS SANTOS</option>
+                        <option value="ANDERSON ARAUJO DE SOUSA">ANDERSON ARAUJO DE SOUSA</option>
+                        <option value="FLAVIO CIRILO VIANA DE OLIVEIRA">FLAVIO CIRILO VIANA DE OLIVEIRA</option>
+                        <option value="MARCOS FERREIRA MACIEL">MARCOS FERREIRA MACIEL</option>
+                        <option value="GUILHERME HERMINIO MARINHO">GUILHERME HERMINIO MARINHO</option>
+                        <option value="LEONARDO PEREIRA GARCIA">LEONARDO PEREIRA GARCIA</option>
+                        <option value="WESLEY TEIXEIRA DE OLIVEIRA">WESLEY TEIXEIRA DE OLIVEIRA</option>
+                        <option value="AGUINALDO TIMOTEO DOS SANTOS">AGUINALDO TIMOTEO DOS SANTOS</option>
+                        <option value="CARLOS ALBERTO LUZ DE SOUZA">CARLOS ALBERTO LUZ DE SOUZA</option>
+                        <option value="DANIEL ABADE DE MELO">DANIEL ABADE DE MELO</option>
+                        <option value="FABRICIO DA SILVA">FABRICIO DA SILVA</option>
+                        <option value="JOSENALDO BATISTA DE OLIVEIRA">JOSENALDO BATISTA DE OLIVEIRA</option>
+                        <option value="PAULO JOSÉ MORAIS DO NASCIMENTO">PAULO JOSÉ MORAIS DO NASCIMENTO</option>
+                        <option value="SILESIO PEREIRA NUNES">SILESIO PEREIRA NUNES</option>
+                        <option value="THOMAS ROGERIO BATISTA">THOMAS ROGERIO BATISTA</option>
+                        <option value="GILMAR JOSÉ DOS SANTOS">GILMAR JOSÉ DOS SANTOS</option>
+                        <option value="RONILDO HERMINIO">RONILDO HERMINIO</option>
+                        <option value="AUSTREGELIO BARBOSA DE QUEIROZ">AUSTREGELIO BARBOSA DE QUEIROZ</option>
+                        <option value="DAVID SILVESTRE PEREIRA">DAVID SILVESTRE PEREIRA</option>
+                        <option value="DOUGLAS MANCINI CARLOS">DOUGLAS MANCINI CARLOS</option>
+                        <option value="MARLON DOS SANTOS">MARLON DOS SANTOS</option>
+                        <option value="RICARDO RAIMUNDO DA SILVA">RICARDO RAIMUNDO DA SILVA</option>
+                        <option value="RODRIGO LIMA HENRIQUE">RODRIGO LIMA HENRIQUE</option>
+                        <option value="WEVERTON FRANCISCO DA SILVA">WEVERTON FRANCISCO DA SILVA</option>
+                        <option value="WILLAS ELEUTÉRIO DA SILVA">WILLAS ELEUTÉRIO DA SILVA</option>
+                        <option value="WILLIAN DOS SANTOS SILVA">WILLIAN DOS SANTOS SILVA</option>
+                        <option value="ALICE DA SILVA SANTOS">ALICE DA SILVA SANTOS</option>
+                        <option value="THAINA MELO MEDEIROS">THAINA MELO MEDEIROS</option>
+                        <option value="ANA PAULA SOUZA">ANA PAULA SOUZA</option>
+                        <option value="RAFAELA GARCIA DE OLIVEIRA TEIXEIRA">RAFAELA GARCIA DE OLIVEIRA TEIXEIRA</option>
+                        <option value="VINICIUS DE LIMA SOARES">VINICIUS DE LIMA SOARES</option>
+                        <option value="ALEX LEANDRO RIBEIRO DA SILVA">ALEX LEANDRO RIBEIRO DA SILVA</option>
+                        <option value="GEISA SANTOS SOUSA">GEISA SANTOS SOUSA</option>
+                        <option value="GIULIA RIBEIRO ZERBINI">GIULIA RIBEIRO ZERBINI</option>
+                        <option value="KELLI CRISTINA OLIVEIRA RODRIGUES">KELLI CRISTINA OLIVEIRA RODRIGUES</option>
+                        <option value="RAFAELA MOTA DA SILVA">RAFAELA MOTA DA SILVA</option>
+                        <option value="STEFANY NASCIMENTO DIAS">STEFANY NASCIMENTO DIAS</option>
+                    </select>
+                </div>
+
+                <div class="linha">
+                    <label>CARGO:</label>
+                    <input type="text" class="w-cargo cargo" readonly>
+
+                    <label>CPF:</label>
+                    <input type="text" class="w-cpf cpf" readonly>
+                </div>
+            </div>
+
+            <div class="linha">
+                <label>Data Ocorrência:</label>
+                <input type="date" class="w-data">
+            </div>
+
+            <div class="pergunta">Qual registro não foi marcado</div>
+
+            <div class="opcoes">
+                <label><input type="radio" name="reg2"> Entrada</label>
+                <label><input type="radio" name="reg2"> Saída Intervalo</label>
+                <label><input type="radio" name="reg2"> Retorno Intervalo</label>
+                <label><input type="radio" name="reg2"> Saída</label>
+            </div>
+
+            <div class="linha-texto">
+                <label>Horário devido da marcação:</label>
+                <input type="time">
+            </div>
+
+            <div class="linha-texto">
+                <label>Justifique o motivo para a não marcação do ponto:</label>
+                <input type="text">
+            </div>
+
+            <div class="assinaturas">
                 <div class="assinatura">
-                    <span>Assinatura RH:</span>
+                    <span>Assinatura do colaborador:</span>
                     <div class="traco"></div>
+                </div>
+
+                <div class="dupla">
+                    <div class="assinatura">
+                        <span>Assinatura Líder:</span>
+                        <div class="traco"></div>
+                    </div>
+
+                    <div class="assinatura">
+                        <span>Assinatura RH:</span>
+                        <div class="traco"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -472,9 +661,10 @@ const funcionarios = {
     "STEFANY NASCIMENTO DIAS": { cargo: "ASSISTENTE LOGISTICA", cpf: "12543483446" }
 };
 
-function preencher(select){
-    const cpf = document.querySelector(".cpf");
-    const cargo = document.querySelector(".cargo");
+function preencher(select, idOcorrencia){
+    const bloco = document.getElementById(idOcorrencia);
+    const cpf = bloco.querySelector(".cpf");
+    const cargo = bloco.querySelector(".cargo");
     const nome = select.value;
 
     if(funcionarios[nome]){
@@ -485,7 +675,19 @@ function preencher(select){
         cargo.value = "";
     }
 }
+
+function alternarOcorrencias(){
+    const qtd = document.getElementById("quantidadeOcorrencias").value;
+    const ocorrencia2 = document.getElementById("ocorrencia2");
+
+    if(qtd === "2"){
+        ocorrencia2.style.display = "block";
+    }else{
+        ocorrencia2.style.display = "none";
+    }
+}
 </script>
 
 </body>
 </html>
+
