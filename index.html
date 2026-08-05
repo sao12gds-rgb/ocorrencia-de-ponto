@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>OCORRÊNCIA DE PONTO</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:20px;
+    background:#f4f6f9;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#000;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    text-align:left;
+}
+
+.area-controle{
+    max-width:900px;
+    margin:0 auto 15px auto;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.area-controle label{
+    font-size:13px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.area-controle select{
+    border:1px solid #999;
+    background:#fff;
+    height:32px;
+    font-size:13px;
+    padding:4px 8px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.gestao-colaboradores{
+    max-width:900px;
+    margin:0 auto 15px auto;
+    background:#fff;
+    border:1px solid #ccc;
+    padding:12px;
+}
+
+.gestao-colaboradores summary{
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.gestao-conteudo{
+    margin-top:12px;
+}
+
+.gestao-linha{
+    display:grid;
+    grid-template-columns:2fr 1.5fr 1fr auto;
+    gap:10px;
+    align-items:end;
+}
+
+.gestao-linha + .gestao-linha{
+    grid-template-columns:1fr auto;
+    margin-top:10px;
+}
+
+.gestao-campo{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.gestao-campo label{
+    font-size:12px;
+    font-weight:bold;
+}
+
+.gestao-colaboradores input,
+.gestao-colaboradores select{
+    width:100%;
+    height:34px;
+    border:1px solid #999;
+    background:#fff;
+    padding:4px 8px;
+    font-size:13px;
+}
+
+.btn-gestao{
+    height:34px;
+    border:none;
+    padding:0 16px;
+    background:#000;
+    color:#fff;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.btn-excluir{
+    background:#8b0000;
+}
+
+.aviso-armazenamento{
+    margin:10px 0 0 0;
+    font-size:11px;
+    color:#555;
+}
+
+.mensagem-gestao{
+    min-height:18px;
+    margin-top:8px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.mensagem-gestao.sucesso{
+    color:#176b2c;
+}
+
+.mensagem-gestao.erro{
+    color:#9b1c1c;
+}
+
+@media (max-width:900px){
+    .gestao-linha,
+    .gestao-linha + .gestao-linha{
+        grid-template-columns:1fr;
+    }
+}
+
+.folha{
+    width:210mm;
+    min-height:297mm;
+    margin:auto;
+    background:#fff;
+    padding:10mm 10mm 12mm 10mm;
+    border:1px solid #ccc;
+    position:relative;
+}
+
+.ocorrencia{
+    width:100%;
+}
+
+.ocorrencia + .ocorrencia{
+    margin-top:10mm;
+    padding-top:6mm;
+    border-top:1px dashed #999;
+}
+
+.topo{
+    position:relative;
+    min-height:68px;
+    margin-bottom:8px;
+}
+
+.logo-box{
+    position:absolute;
+    top:0;
+    left:0;
+    width:120px;
+    height:68px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.logo-box img{
+    max-width:90px;
+    max-height:62px;
+    width:auto;
+    height:auto;
+    display:block;
+}
+
+.titulo{
+    text-align:center;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight:bold;
+    text-decoration:underline;
+    font-size:15px;
+    line-height:68px;
+}
+
+.bloco{
+    border:1px solid #000;
+    padding:12px 10px 8px 10px;
+    margin-top:8px;
+    position:relative;
+}
+
+.bloco-titulo{
+    position:absolute;
+    top:-9px;
+    left:12px;
+    background:#fff;
+    padding:0 5px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.linha{
+    display:flex;
+    gap:10px;
+    margin-top:8px;
+    align-items:flex-end;
+    flex-wrap:wrap;
+}
+
+label,
+span,
+.pergunta{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:13px;
+    font-weight:normal;
+    white-space:nowrap;
+}
+
+input,
+select{
+    border:none;
+    border-bottom:1px solid #000;
+    background:transparent;
+    height:24px;
+    font-size:13px;
+    padding:2px 3px;
+    color:#000;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight:normal;
+}
+
+.folha select{
+    background:#fff;
+}
+
+.w-razao{
+    width:390px;
+}
+
+.w-endereco{
+    width:560px;
+}
+
+.w-nome{
+    width:350px;
+}
+
+.w-cargo{
+    width:180px;
+}
+
+.w-cpf{
+    width:150px;
+}
+
+.w-data{
+    width:160px;
+}
+
+.pergunta{
+    margin-top:14px;
+}
+
+.opcoes{
+    display:flex;
+    gap:18px;
+    margin-top:10px;
+    flex-wrap:wrap;
+}
+
+.opcoes label{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.linha-texto{
+    margin-top:14px;
+    display:flex;
+    gap:10px;
+    align-items:flex-end;
+    flex-wrap:wrap;
+}
+
+.linha-texto input{
+    flex:1;
+    min-width:250px;
+}
+
+.assinaturas{
+    margin-top:16px;
+}
+
+.assinatura{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+    align-items:flex-end;
+}
+
+.traco{
+    flex:1;
+    border-bottom:1px solid #000;
+    height:20px;
+}
+
+.dupla{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.area-botao{
+    max-width:900px;
+    margin:20px auto 0 auto;
+    text-align:center;
+}
+
+.btn-print{
+    width:100%;
+    max-width:300px;
+    height:40px;
+    background:#000;
+    color:#fff;
+    border:none;
+    font-size:14px;
+    cursor:pointer;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+@media print{
+    @page{
+        size:A4 portrait;
+        margin:0;
+    }
+
+    body{
+        background:#fff;
+        padding:0;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .folha{
+        border:none;
+        margin:0;
+        min-height:297mm;
+    }
+
+    .area-botao,
+    .btn-print,
+    .area-controle,
+    .gestao-colaboradores{
+        display:none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="area-controle">
+        <label for="quantidadeOcorrencias">Quantidade de ocorrências na folha:</label>
+        <select id="quantidadeOcorrencias" onchange="alternarOcorrencias()">
+            <option value="1">1 ocorrência</option>
+            <option value="2">2 ocorrências</option>
+        </select>
+    </div>
+
+    <details class="gestao-colaboradores">
+        <summary>Gerenciar colaboradores</summary>
+
+        <div class="gestao-conteudo">
+            <div class="gestao-linha">
+                <div class="gestao-campo">
+                    <label for="novoNome">Nome do colaborador</label>
+                    <input type="text" id="novoNome" placeholder="Nome completo">
+                </div>
+
+                <div class="gestao-campo">
+                    <label for="novoCargo">Cargo</label>
+                    <input type="text" id="novoCargo" placeholder="Cargo do colaborador">
+                </div>
+
+                <div class="gestao-campo">
+                    <label for="novoCpf">CPF</label>
+                    <input type="text" id="novoCpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" oninput="mascararCampoCPF(this)">
+                </div>
+
+                <button type="button" class="btn-gestao" onclick="incluirFuncionario()">Incluir colaborador</button>
+            </div>
+
+            <div class="gestao-linha">
+                <div class="gestao-campo">
+                    <label for="funcionarioExcluir">Colaborador a excluir</label>
+                    <select id="funcionarioExcluir">
+                        <option value="">Selecionar colaborador</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn-gestao btn-excluir" onclick="excluirFuncionario()">Excluir colaborador</button>
+            </div>
+
+            <p class="aviso-armazenamento">As inclusões e exclusões ficam salvas neste navegador e não aparecem na impressão.</p>
+            <div id="mensagemGestao" class="mensagem-gestao" role="status" aria-live="polite"></div>
+        </div>
+    </details>
+
+    <div class="folha">
+
+        <!-- OCORRÊNCIA 1 -->
+        <div class="ocorrencia" id="ocorrencia1">
+            <div class="topo">
+                <div class="logo-box">
+                    <img src="LogodaMarca.png" alt="Logo">
+                </div>
+                <div class="titulo">Correções e lançamentos manuais</div>
+            </div>
+
+            <div class="bloco">
+                <div class="bloco-titulo">DADOS DO EMPREGADOR</div>
+
+                <div class="linha">
+                    <label>Razão Social:</label>
+                    <select class="w-razao">
+                        <option value="">Selecionar empregador</option>
+                        <option value="16.637.947/0002-29">16.637.947/0002-29 - Gds Logistica Filial</option>
+                        <option value="55.990.578/0001-24">55.990.578/0001-24 - CDSP2 Logistica Ltda</option>
+                        <option value="29.727.360/0001-71">29.727.360/0001-71 - GdsLog Soluções Ltda</option>
+                        <option value="16.637.947/0001-48">16.637.947/0001-48 - GDS Logistica Ltda</option>
+                    </select>
+                </div>
+
+                <div class="linha">
+                    <label>Endereço:</label>
+                    <input type="text" class="w-endereco" value="Rua Teodoro de Beaurepaire, 34, Ipiranga, São Paulo - SP, 04279-030" readonly>
+                </div>
+            </div>
+
+            <div class="bloco">
+                <div class="bloco-titulo">DADOS DO TRABALHADOR</div>
+
+                <div class="linha">
+                    <label>NOME DO COLABORADOR:</label>
+                    <select class="w-nome funcionario-select" onchange="preencherDireto(this, 'ocorrencia1')">
+                        <option value="">Selecionar</option>
+                    </select>
+                </div>
+
+                <div class="linha">
+                    <label>CARGO:</label>
+                    <input type="text" class="w-cargo cargo" readonly>
+
+                    <label>CPF:</label>
+                    <input type="text" class="w-cpf cpf" readonly>
+                </div>
+            </div>
+
+            <div class="linha">
+                <label>Data Ocorrência:</label>
+                <input type="date" class="w-data">
+            </div>
+
+            <div class="pergunta">Qual registro não foi marcado</div>
+
+            <div class="opcoes">
+                <label><input type="radio" name="reg1"> Entrada</label>
+                <label><input type="radio" name="reg1"> Saída Intervalo</label>
+                <label><input type="radio" name="reg1"> Retorno Intervalo</label>
+                <label><input type="radio" name="reg1"> Saída</label>
+            </div>
+
+            <div class="linha-texto">
+                <label>Horário devido da marcação:</label>
+                <input type="time">
+            </div>
+
+            <div class="linha-texto">
+                <label>Justifique o motivo para a não marcação do ponto:</label>
+                <input type="text">
+            </div>
+
+            <div class="assinaturas">
+                <div class="assinatura">
+                    <span>Assinatura do colaborador:</span>
+                    <div class="traco"></div>
+                </div>
+
+                <div class="dupla">
+                    <div class="assinatura">
+                        <span>Assinatura Líder:</span>
+                        <div class="traco"></div>
+                    </div>
+
+                    <div class="assinatura">
+                        <span>Assinatura RH:</span>
+                        <div class="traco"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OCORRÊNCIA 2 -->
+        <div class="ocorrencia" id="ocorrencia2" style="display:none;">
+            <div class="topo">
+                <div class="logo-box">
+                    <img src="LogodaMarca.png" alt="Logo">
+                </div>
+                <div class="titulo">Correções e lançamentos manuais</div>
+            </div>
+
+            <div class="bloco">
+                <div class="bloco-titulo">DADOS DO EMPREGADOR</div>
+
+                <div class="linha">
+                    <label>Razão Social:</label>
+                    <select class="w-razao">
+                        <option value="">Selecionar empregador</option>
+                        <option value="16.637.947/0002-29">16.637.947/0002-29 - Gds Logistica Filial</option>
+                        <option value="55.990.578/0001-24">55.990.578/0001-24 - CDSP2 Logistica Ltda</option>
+                        <option value="29.727.360/0001-71">29.727.360/0001-71 - GdsLog Soluções Ltda</option>
+                    </select>
+                </div>
+
+                <div class="linha">
+                    <label>Endereço:</label>
+                    <input type="text" class="w-endereco" value="Rua Teodoro de Beaurepaire, 34, Ipiranga, São Paulo - SP, 04279-030" readonly>
+                </div>
+            </div>
+
+            <div class="bloco">
+                <div class="bloco-titulo">DADOS DO TRABALHADOR</div>
+
+                <div class="linha">
+                    <label>NOME DO COLABORADOR:</label>
+                    <select class="w-nome funcionario-select" onchange="preencherDireto(this, 'ocorrencia2')">
+                        <option value="">Selecionar</option>
+                    </select>
+                </div>
+
+                <div class="linha">
+                    <label>CARGO:</label>
+                    <input type="text" class="w-cargo cargo" readonly>
+
+                    <label>CPF:</label>
+                    <input type="text" class="w-cpf cpf" readonly>
+                </div>
+            </div>
+
+            <div class="linha">
+                <label>Data Ocorrência:</label>
+                <input type="date" class="w-data">
+            </div>
+
+            <div class="pergunta">Qual registro não foi marcado</div>
+
+            <div class="opcoes">
+                <label><input type="radio" name="reg2"> Entrada</label>
+                <label><input type="radio" name="reg2"> Saída Intervalo</label>
+                <label><input type="radio" name="reg2"> Retorno Intervalo</label>
+                <label><input type="radio" name="reg2"> Saída</label>
+            </div>
+
+            <div class="linha-texto">
+                <label>Horário devido da marcação:</label>
+                <input type="time">
+            </div>
+
+            <div class="linha-texto">
+                <label>Justifique o motivo para a não marcação do ponto:</label>
+                <input type="text">
+            </div>
+
+            <div class="assinaturas">
+                <div class="assinatura">
+                    <span>Assinatura do colaborador:</span>
+                    <div class="traco"></div>
+                </div>
+
+                <div class="dupla">
+                    <div class="assinatura">
+                        <span>Assinatura Líder:</span>
+                        <div class="traco"></div>
+                    </div>
+
+                    <div class="assinatura">
+                        <span>Assinatura RH:</span>
+                        <div class="traco"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="area-botao">
+    <button class="btn-print" onclick="window.print()">Imprimir</button>
+</div>
+
+<script>
+const funcionarios = {
+    "ALBERTO JUNIOR DOS SANTOS": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "38003983894" },
+    "ALEX LEANDRO RIBEIRO DA SILVA": { cargo: "ASSISTENTE LOGISTICA", cpf: "16097728816" },
+    "ALICE DA SILVA SANTOS": { cargo: "AUX DE LOGISTICA", cpf: "55119457819" },
+    "ANA PAULA SOUZA": { cargo: "AUXILIAR DE LOGISTICA", cpf: "32865177807" },
+    "ANDERSON ARAUJO DE SOUSA": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "48969349898" },
+    "AGUINALDO TIMOTEO DOS SANTOS": { cargo: "MOTORISTA DE CAMINHAO", cpf: "16519105880" },
+    "AUSTREGELIO BARBOSA DE QUEIROZ": { cargo: "MOTORISTA DE CAMINHAO", cpf: "28748256897" },
+    "CARLOS ALBERTO LUZ DE SOUZA": { cargo: "MOTORISTA DE CAMINHAO", cpf: "13642175899" },
+    "CLECIA DA SILVA": { cargo: "AUXILIAR DE LIMPEZA", cpf: "8049843440" },
+    "DANIEL ABADE DE MELO": { cargo: "MOTORISTA", cpf: "29328603803" },
+    "DAVID ALEXANDRE FREITAS": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: " 58825175833" },
+    "DAVID SILVESTRE PEREIRA": { cargo: "MOTORISTA", cpf: "38167479811" },
+    "DOUGLAS MANCINI CARLOS": { cargo: "MOTORISTA DE CAMINHAO", cpf: "40430267819" },
+    "EDSON CASARI AMORIN": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "52436739862" },
+    "ESTER DE ANDRADE GOMES": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "52264727810" },
+    "EUCLIDES ENRIQUE PADOVEZI": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "47064148811" },
+    "FABRICIO DA SILVA": { cargo: "MOTORISTA", cpf: "30641054858" },
+    "FLAVIO CIRILO VIANA DE OLIVEIRA": { cargo: "LIDER OPERACIONAL DE CARGAS JUNIOR", cpf: "5904279701" },
+    "GABRIEL PEREIRA DOS REIS": { cargo: "AJUDANTE MOTORISTA", cpf: "40147597846" },
+    "GENIVAL VIEIRA DA SILVA JUNIOR": { cargo: "ASSISTENTE DE EXPEDIÇÃO", cpf: "29383009802" },
+    "GILMAR JOSÉ DOS SANTOS": { cargo: "AJUDANTE DE MOTORISTA", cpf: "2415328413" },
+    "GUILHERME HERMINIO MARINHO": { cargo: "AJUDANTE DE MOTORISTA", cpf: "14407041471" },
+    "GUSTAVO FERREIRA DE OLIVEIRA": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "31250989809" },
+    "GUSTAVO GABRIEL MORAES AMORIM": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "50768725852" },
+    "JOSENALDO BATISTA DE OLIVEIRA": { cargo: "MOTORISTA DE CAMINHAO", cpf: "67604137415" },
+    "JULIA DE ASSIS DA SILVA": { cargo: "ASSISTENTE LOGISTICA", cpf: "47558327806" },
+    "LAYSA VITORIA VIEIRA SANTIAGO": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "57287232847" },
+    "LEONARDO CHAGAS AGUIAR": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "47419835870" },
+    "LEONARDO PEREIRA GARCIA": { cargo: "MOTORISTA", cpf: "46462997800" },
+    "LUCAS MATEUS AUGUSTA": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "48837396864" },
+    "LUIS CARLOS DOS SANTOS": { cargo: "LIDER OPERACIONAL DE CARGAS SENIOR", cpf: "23319637894" },
+    "MARCOS FERREIRA MACIEL": { cargo: "SUP OPERACIONAL DE CARGAS PLENO", cpf: "25474793898" },
+    "MARCELO DA SILVA ARAUJO": { cargo: "LIDER OPERACIONAL DE CARGAS JUNIOR", cpf: "38854736821" },
+    "MARLON DOS SANTOS": { cargo: "MOTORISTA DE CAMINHAO", cpf: "11830800426" },
+    "NICOLLAS DOMINGUES SILVA": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "50503447862" },
+    "NILSON DA SILVA LIMA": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "45496938864" },
+    "PAOLA VITORIA DA SILVA SOUSA": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "44164538848" },
+    "PAULO HENRIQUE GONÇALVES DE JESUS": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "45104268870" },
+    "PAULO JOSÉ MORAIS DO NASCIMENTO": { cargo: "MOTORISTA", cpf: "16698431818" },
+    "RAFAELA GARCIA DE OLIVEIRA TEIXEIRA": { cargo: "ASSISTENTE LOGISTICA", cpf: "39882386865" },
+    "RAFAELA MOTA DA SILVA": { cargo: "SUP OPERACIONAL DE CARGAS PLENO", cpf: "37267229808" },
+    "RICARDO RAIMUNDO DA SILVA": { cargo: "MOTORISTA DE CAMINHAO", cpf: "14694401807" },
+    "RODRIGO LIMA HENRIQUE": { cargo: "MOTORISTA DE CAMINHAO", cpf: "32008262820" },
+    "RONILDO HERMINIO": { cargo: "MOTORISTA DE CAMINHAO", cpf: "2286534446" },
+    "ROSEANE FRANÇA DE SOUZA": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "35091073817" },
+    "SILESIO PEREIRA NUNES": { cargo: "MOTORISTA", cpf: "12416947613" },
+    "STEFANY NASCIMENTO DIAS": { cargo: "ASSISTENTE LOGISTICA", cpf: "12543483446" },
+    "THOMAS ROGERIO BATISTA": { cargo: "MOTORISTA", cpf: "35841105809" },
+    "VICTOR DE AQUINO OLIVEIRA": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "42347938843" },
+    "VINICIUS DE LIMA SOARES": { cargo: "LIDER OPERACIONAL DE CARGAS SENIOR", cpf: "46307775807" },
+    "VITOR VINICIUS FERREIRA DO CARMO SCAVUZZ": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "48856375893" },
+    "VITOR GUSTAVO LIMA DOS SANTOS": { cargo: "AUXILIAR DE EXPEDICAO", cpf: "49105157803" },
+    "WALLACY THOMAS DA SILVA CAVALCANTE": { cargo: "SUP OPERACIONAL DE LOGISTICA JUNIOR", cpf: "44554625893" },
+    "WELLINGTON NOGUEIRA DE SOUZA": { cargo: "AUXILIAR EXPEDIÇÃO", cpf: "37557818830" },
+    "WESLEY TEIXEIRA DE OLIVEIRA": { cargo: "MOTORISTA", cpf: "39761299848" },
+    "WEVERTON FRANCISCO DA SILVA": { cargo: "MOTORISTA", cpf: "37903840894" },
+    "WILLAS ELEUTÉRIO DA SILVA": { cargo: "MOTORISTA DE CAMINHAO", cpf: "70374774439" },
+     "WILLIAN DOS SANTOS SILVA": { cargo: "MOTORISTA DE CAMINHAO", cpf: "30881944882" },
+    "OTTO GABRIEL TEIXEIRA SILVA": { cargo: "LIDER DE OPERAÇÃO", cpf: "34714950886" },
+    "LUCIANE DA SILVA TAVARES": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "27434429801" },
+    "BRUNO HENRIQUE ROSSI DOS SANTOS": { cargo: "LIDER DE OPERAÇÃO", cpf: "45919103850" },
+    "WELLINGTON JORGE DA SILVA": { cargo: "MOTORISTA", cpf: "02962044476" },
+    "CLEBER BARBOSA DA SILVA": { cargo: "EMISSOR DE CARGAS", cpf: "13408764859" },
+    "PAULO HENRIQUE MARTINS": { cargo: "EMISSOR DE CARGAS", cpf: "33319729837" },
+    "RENATA ALVES DA SILVA": { cargo: "EMISSOR DE CARGAS", cpf: "45810830870" },
+    "JUAN ESTEVÃO SOUZA MOLINA": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "47678993897" },
+    "MICAEL DE COUTO MARTINS SOUZA": { cargo: "SUPERVISOR DE OPERAÇÕES", cpf: "51056765801" },
+    "FABIO CIPRIANO SANTANA": { cargo: "MOTORISTA", cpf: "36069131843" },
+    "KAUA BARBOSA DOS SANTOS": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "19606748707" },
+    "GABRIEL FERNANDO SOARES": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "38732704801" },
+    "LUCIO MONTEIRO": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "22354971877" },
+    "PAMELA VITÓRIA ALVES RIBEIRO": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "49731313850" },
+    "GABRIEL FERNANDO SOARES": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "38732704801" },
+    "FELIPE MONTEIRO DA SILVA": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "43400462802" },
+    "GUILHERME SOUZA DE JESUS": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "53636536800" },
+    "GLAUCIA BELNICE DOS ANJOS BATISTA": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "34296701878" },
+    "MARCOS VINICIUS RODRIGUES DA SILVA": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "55219966804" },
+     "RENATA ARAUJO BONFIM": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: " 46870036802" },
+    "VITOR DA SILVA DE ANDRADE": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: " 71134533411" },
+    "KAUE SANTOS BARBOSA DA SILVA": { cargo: "AUXILIAR DE EXPEDIÇÃO", cpf: "  14403890474" },
+     "CASSIO ADRIANO DE SOUSA SOARES": { cargo: "LIDER OPERACIONAL DE CARGAS", cpf: " 08191825759" },
+     "CARLOS EDUARDO DE PAULA MACHADO": { cargo: "LIDER OPERACIONAL DE CARGAS", cpf: " 22379043833" },
+     "TAINA IARA DA SILVA SANTOS": { cargo: "AUXILIAR DE LOGISTICA", cpf: " 50733190871" },
+};
+
+const funcionariosBase = { ...funcionarios };
+const CHAVE_FUNCIONARIOS_ADICIONAIS = "ocorrenciaPonto_funcionariosAdicionais";
+const CHAVE_FUNCIONARIOS_EXCLUIDOS = "ocorrenciaPonto_funcionariosExcluidos";
+
+let funcionariosAdicionais = carregarObjetoLocal(CHAVE_FUNCIONARIOS_ADICIONAIS, {});
+let funcionariosExcluidos = carregarObjetoLocal(CHAVE_FUNCIONARIOS_EXCLUIDOS, []);
+
+function carregarObjetoLocal(chave, valorPadrao){
+    try{
+        const valor = localStorage.getItem(chave);
+        return valor ? JSON.parse(valor) : valorPadrao;
+    }catch(erro){
+        return valorPadrao;
+    }
+}
+
+function salvarCadastros(){
+    try{
+        localStorage.setItem(CHAVE_FUNCIONARIOS_ADICIONAIS, JSON.stringify(funcionariosAdicionais));
+        localStorage.setItem(CHAVE_FUNCIONARIOS_EXCLUIDOS, JSON.stringify(funcionariosExcluidos));
+        return true;
+    }catch(erro){
+        mostrarMensagemGestao("Não foi possível gravar as alterações neste navegador.", "erro");
+        return false;
+    }
+}
+
+function reconstruirFuncionarios(){
+    Object.keys(funcionarios).forEach(nome => delete funcionarios[nome]);
+
+    Object.entries(funcionariosBase).forEach(([nome, dados]) => {
+        if(!funcionariosExcluidos.includes(nome)){
+            funcionarios[nome] = { ...dados };
+        }
+    });
+
+    Object.entries(funcionariosAdicionais).forEach(([nome, dados]) => {
+        if(!funcionariosExcluidos.includes(nome)){
+            funcionarios[nome] = { ...dados };
+        }
+    });
+}
+
+function normalizarTexto(valor){
+    return String(valor).trim().replace(/\s+/g, " ").toLocaleUpperCase("pt-BR");
+}
+
+function somenteNumeros(valor){
+    return String(valor).replace(/\D/g, "");
+}
+
+function mascararCampoCPF(campo){
+    const numeros = somenteNumeros(campo.value).slice(0, 11);
+    let valor = numeros;
+
+    if(numeros.length > 3){
+        valor = numeros.slice(0, 3) + "." + numeros.slice(3);
+    }
+    if(numeros.length > 6){
+        valor = numeros.slice(0, 3) + "." + numeros.slice(3, 6) + "." + numeros.slice(6);
+    }
+    if(numeros.length > 9){
+        valor = numeros.slice(0, 3) + "." + numeros.slice(3, 6) + "." + numeros.slice(6, 9) + "-" + numeros.slice(9);
+    }
+
+    campo.value = valor;
+}
+
+function mostrarMensagemGestao(texto, tipo){
+    const mensagem = document.getElementById("mensagemGestao");
+    mensagem.textContent = texto;
+    mensagem.className = "mensagem-gestao " + (tipo || "");
+}
+
+function formatarCPF(cpf){
+    const numeros = String(cpf).replace(/\D/g, "");
+    if(numeros.length === 11){
+        return numeros.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+    }
+    return cpf;
+}
+
+function preencherDireto(select, idOcorrencia){
+    const bloco = document.getElementById(idOcorrencia);
+    const cpf = bloco.querySelector(".cpf");
+    const cargo = bloco.querySelector(".cargo");
+    const nome = select.value;
+
+    if(funcionarios[nome]){
+        cpf.value = formatarCPF(funcionarios[nome].cpf);
+        cargo.value = funcionarios[nome].cargo;
+    }else{
+        cpf.value = "";
+        cargo.value = "";
+    }
+}
+
+function alternarOcorrencias(){
+    const qtd = document.getElementById("quantidadeOcorrencias").value;
+    const ocorrencia2 = document.getElementById("ocorrencia2");
+    ocorrencia2.style.display = qtd === "2" ? "block" : "none";
+}
+
+function carregarFuncionarios(){
+    const nomes = Object.keys(funcionarios).sort((a, b) => a.localeCompare(b, "pt-BR"));
+    const selects = document.querySelectorAll(".funcionario-select");
+
+    selects.forEach(select => {
+        const nomeSelecionado = select.value;
+        select.innerHTML = '<option value="">Selecionar</option>';
+
+        nomes.forEach(nome => {
+            const option = document.createElement("option");
+            option.value = nome;
+            option.textContent = nome;
+            select.appendChild(option);
+        });
+
+        if(nomeSelecionado && funcionarios[nomeSelecionado]){
+            select.value = nomeSelecionado;
+        }else if(nomeSelecionado){
+            const bloco = select.closest(".ocorrencia");
+            bloco.querySelector(".cpf").value = "";
+            bloco.querySelector(".cargo").value = "";
+        }
+    });
+
+    const selectExclusao = document.getElementById("funcionarioExcluir");
+    if(selectExclusao){
+        const nomeSelecionado = selectExclusao.value;
+        selectExclusao.innerHTML = '<option value="">Selecionar colaborador</option>';
+
+        nomes.forEach(nome => {
+            const option = document.createElement("option");
+            option.value = nome;
+            option.textContent = nome;
+            selectExclusao.appendChild(option);
+        });
+
+        if(nomeSelecionado && funcionarios[nomeSelecionado]){
+            selectExclusao.value = nomeSelecionado;
+        }
+    }
+}
+
+function incluirFuncionario(){
+    const campoNome = document.getElementById("novoNome");
+    const campoCargo = document.getElementById("novoCargo");
+    const campoCpf = document.getElementById("novoCpf");
+
+    const nome = normalizarTexto(campoNome.value);
+    const cargo = normalizarTexto(campoCargo.value);
+    const cpf = somenteNumeros(campoCpf.value);
+
+    if(!nome || !cargo || !cpf){
+        mostrarMensagemGestao("Preencha nome, cargo e CPF.", "erro");
+        return;
+    }
+
+    if(cpf.length !== 11){
+        mostrarMensagemGestao("O CPF deve conter 11 números.", "erro");
+        campoCpf.focus();
+        return;
+    }
+
+    if(funcionarios[nome]){
+        mostrarMensagemGestao("Este colaborador já está cadastrado.", "erro");
+        campoNome.focus();
+        return;
+    }
+
+    funcionariosAdicionais[nome] = { cargo, cpf };
+    funcionariosExcluidos = funcionariosExcluidos.filter(nomeExcluido => nomeExcluido !== nome);
+
+    reconstruirFuncionarios();
+    salvarCadastros();
+    carregarFuncionarios();
+
+    campoNome.value = "";
+    campoCargo.value = "";
+    campoCpf.value = "";
+
+    mostrarMensagemGestao("Colaborador incluído com sucesso.", "sucesso");
+}
+
+function excluirFuncionario(){
+    const selectExclusao = document.getElementById("funcionarioExcluir");
+    const nome = selectExclusao.value;
+
+    if(!nome){
+        mostrarMensagemGestao("Selecione um colaborador para excluir.", "erro");
+        return;
+    }
+
+    if(!window.confirm("Confirma a exclusão de " + nome + "?")){
+        return;
+    }
+
+    delete funcionariosAdicionais[nome];
+
+    if(!funcionariosExcluidos.includes(nome)){
+        funcionariosExcluidos.push(nome);
+    }
+
+    reconstruirFuncionarios();
+    salvarCadastros();
+    carregarFuncionarios();
+
+    mostrarMensagemGestao("Colaborador excluído com sucesso.", "sucesso");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    reconstruirFuncionarios();
+    carregarFuncionarios();
+});
+</script>
+
+</body>
+</html>
+
+            
