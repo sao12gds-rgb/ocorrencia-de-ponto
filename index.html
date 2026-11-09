@@ -916,6 +916,67 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
+<!-- COMPLEMENTO ISOLADO: CNPJ automático por CPF, mantendo a seleção manual. -->
+<script>
+(function(){
+    "use strict";
+
+    // Somente vínculos de empregador explicitamente confirmados.
+    // Outros colaboradores continuam com a escolha manual de empregador.
+    const cnpjPorCPF = {
+        // CDSP2
+        "39761299848": "55.990.578/0001-24",
+        "2286534446":  "55.990.578/0001-24",
+        "52264727810": "55.990.578/0001-24",
+        "31250989809": "55.990.578/0001-24",
+        "55119457819": "55.990.578/0001-24",
+        "47064148811": "55.990.578/0001-24",
+        "14407041471": "55.990.578/0001-24",
+        // FILIAL
+        "54976343898": "16.637.947/0002-29",
+        "12543483446": "16.637.947/0002-29",
+        "50733190871": "16.637.947/0002-29",
+        "54282140828": "16.637.947/0002-29",
+        "37267229808": "16.637.947/0002-29",
+        // LOG
+        "39882386865": "29.727.360/0001-71"
+    };
+
+    function inicializarCNPJAutomatico(){
+        // Mantém todas as opções disponíveis também no formulário da 2ª ocorrência.
+        const empregadorPrimeiro = document.querySelector('#ocorrencia1 .w-razao');
+        const empregadorSegundo = document.querySelector('#ocorrencia2 .w-razao');
+        if(empregadorPrimeiro && empregadorSegundo){
+            Array.from(empregadorPrimeiro.options).forEach(opcao => {
+                if(!Array.from(empregadorSegundo.options).some(item => item.value === opcao.value)){
+                    empregadorSegundo.add(new Option(opcao.text, opcao.value));
+                }
+            });
+        }
+
+        document.querySelectorAll('.funcionario-select').forEach(select => {
+            select.addEventListener('change', function(){
+                const ocorrencia = this.closest('.ocorrencia');
+                const empregador = ocorrencia && ocorrencia.querySelector('.w-razao');
+                if(!empregador) return;
+                const cadastro = funcionarios[this.value];
+                const cpf = cadastro ? String(cadastro.cpf).replace(/\D/g, '') : '';
+                const cnpj = cnpjPorCPF[cpf] || '';
+                // Se não houver vínculo confirmado, não atribuir empregador por suposição.
+                empregador.value = cnpj;
+            });
+        });
+    }
+
+    if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', inicializarCNPJAutomatico);
+    }else{
+        inicializarCNPJAutomatico();
+    }
+})();
+</script>
+
 </body>
 </html>
 
