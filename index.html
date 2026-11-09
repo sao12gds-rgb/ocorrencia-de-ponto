@@ -948,6 +948,21 @@ document.addEventListener("DOMContentLoaded", () => {
         "39882386865": "29.727.360/0001-71"
     };
 
+    // Colaboradores GDS LOG: CNPJ confirmado pelo responsável.
+    const cpfsGdsLog = new Set([
+        "23319637894", "44164538848", "29383009802", "47419835870",
+        "48856375893", "42347938843", "57287232847", "40147597846",
+        "46307775807", "38854736821", "38003983894", "25474793898",
+        "5904279701", "32865177807", "35091073817", "48837396864",
+        "37557818830", "52436739862", "50503447862", "49105157803",
+        "5840190683", "53478234883", "41158945809", "61508330115",
+        "38813414803"
+    ]);
+    function obterCnpjColaborador(cpf){
+        if(cnpjPorCPF[cpf]) return cnpjPorCPF[cpf];
+        return cpfsGdsLog.has(cpf) ? '29.727.360/0001-71' : '';
+    }
+
     function inicializarCNPJAutomatico(){
         // Mantém todas as opções disponíveis também no formulário da 2ª ocorrência.
         const empregadorPrimeiro = document.querySelector('#ocorrencia1 .w-razao');
@@ -967,7 +982,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if(!empregador) return;
                 const cadastro = funcionarios[this.value];
                 const cpf = cadastro ? String(cadastro.cpf).replace(/\D/g, '') : '';
-                const cnpj = cnpjPorCPF[cpf] || '';
+                const cnpj = obterCnpjColaborador(cpf);
                 // Se não houver vínculo confirmado, não atribuir empregador por suposição.
                 empregador.value = cnpj;
             });
